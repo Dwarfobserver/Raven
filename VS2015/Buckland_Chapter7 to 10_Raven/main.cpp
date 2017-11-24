@@ -12,6 +12,8 @@
 #include "Raven_Game.h"
 #include "lua/Raven_Scriptor.h"
 
+#include "AttackLearning.h"
+
 
 //need to include this for the toolbar stuff
 #include <commctrl.h>
@@ -436,6 +438,9 @@ int WINAPI WinMain (HINSTANCE hInstance,
                     LPSTR     szCmdLine, 
                     int       iCmdShow)
 {
+	// Comment this line to skip attack learning tests
+	if (!al::Tests::run()) return 0;
+
   MSG msg;
   //handle to our window
 	HWND						hWnd;

@@ -1,0 +1,5 @@
+
+# Contains informations about data from player attacks.
+
+>files
+__testXOR

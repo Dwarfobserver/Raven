@@ -77,6 +77,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{f3f5ab42-49d8-4348-aa63-66655abd9be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="attack-learning">
+      <UniqueIdentifier>{444cba23-6310-481f-b550-67b4a5c75d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -267,6 +270,33 @@
     </ClCompile>
     <ClCompile Include="..\Common\misc\WindowUtils.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="al_FileParser.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_Resources.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_DataFile.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_Record.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_Attributes.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_Tests.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_NeuralNetwork.cpp">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="genann\genann.c">
+      <Filter>attack-learning</Filter>
+    </ClCompile>
+    <ClCompile Include="al_Trainer.cpp">
+      <Filter>attack-learning</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,6 +635,36 @@
     </ClInclude>
     <ClInclude Include="..\Common\misc\WindowUtils.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="al_FileParser.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_Resources.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackLearning.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_DataFile.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_Attributes.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_Record.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_Tests.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_NeuralNetwork.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="genann\genann.h">
+      <Filter>attack-learning</Filter>
+    </ClInclude>
+    <ClInclude Include="al_Trainer.h">
+      <Filter>attack-learning</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

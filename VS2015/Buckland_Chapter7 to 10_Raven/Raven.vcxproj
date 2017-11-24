@@ -216,6 +216,14 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="al_Attributes.cpp" />
+    <ClCompile Include="al_FileParser.cpp" />
+    <ClCompile Include="al_DataFile.cpp" />
+    <ClCompile Include="al_NeuralNetwork.cpp" />
+    <ClCompile Include="al_Record.cpp" />
+    <ClCompile Include="al_Tests.cpp" />
+    <ClCompile Include="al_Trainer.cpp" />
+    <ClCompile Include="genann\genann.c" />
     <ClCompile Include="main.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -471,6 +479,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='boundschecker|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="al_Resources.cpp" />
     <ClCompile Include="triggers\Trigger_HealthGiver.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -533,6 +542,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="al_Attributes.h" />
+    <ClInclude Include="al_FileParser.h" />
+    <ClInclude Include="al_NeuralNetwork.h" />
+    <ClInclude Include="al_Record.h" />
+    <ClInclude Include="al_Tests.h" />
+    <ClInclude Include="al_Trainer.h" />
+    <ClInclude Include="AttackLearning.h" />
+    <ClInclude Include="al_DataFile.h" />
+    <ClInclude Include="genann\genann.h" />
     <ClInclude Include="Raven_Bot.h" />
     <ClInclude Include="Raven_Game.h" />
     <ClInclude Include="Raven_Map.h" />
@@ -617,6 +635,7 @@
     <ClInclude Include="..\Common\Messaging\Telegram.h" />
     <ClInclude Include="Raven_SensoryMemory.h" />
     <ClInclude Include="..\Common\Triggers\Trigger.h" />
+    <ClInclude Include="al_Resources.h" />
     <ClInclude Include="triggers\Trigger_HealthGiver.h" />
     <ClInclude Include="..\Common\Triggers\Trigger_LimitedLifeTime.h" />
     <ClInclude Include="triggers\Trigger_OnButtonSendMsg.h" />
