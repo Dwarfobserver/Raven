@@ -15,8 +15,6 @@ Trainer::Trainer(Attributes attributes, std::vector<std::vector<Record> const*> 
 	pData_ = std::make_unique<double[]>(dataSize_ * dataCount_);
 
 	trainingCount_ = dataCount_ * 2 / 3;
-	trainingData.begin_ = pData_.get() + dataSize_ * trainingCount_;
-	trainingData.end_ = pData_.get() + dataSize_ * dataCount_;
 
 	int i = 0;
 	for (auto pVec : pRecords) {
@@ -30,7 +28,7 @@ Trainer::Trainer(Attributes attributes, std::vector<std::vector<Record> const*> 
 	normalizeData();
 }
 
-void Trainer::train(NeuralNetwork& nn) const {
+double Trainer::train(NeuralNetwork& nn, double errorAccepted, int passesBetweenChecks) const {
 	if (nn.config().inputsCount != dataSize_ - 1)
 		throw std::runtime_error{ "The neural network has a wrong number of inputs for this trainer." };
 
@@ -38,25 +36,31 @@ void Trainer::train(NeuralNetwork& nn) const {
 	const auto testing = [&, this] {
 		double error = 0.0;
 		for (int i = trainingCount_; i < dataCount_; ++i) {
-			error += nn.evaluate(trainingData.begin() + i * dataSize_);
+			double expected = pData_[(i + 1) * dataSize_ - 1];
+			double output = nn.evaluate(pData_.get() + i * dataSize_);
+			error += std::abs(expected - output);
 		}
 		return error;
 	};
 	double newError = testing();
 	double oldError = newError + 1;
 
-	while (newError < oldError) {
-		for (int passes = 0; passes < 10; ++passes) {
+	while (newError < oldError && newError > errorAccepted * dataCount_) {
+		for (int pass = 0; pass < passesBetweenChecks; ++pass) {
 			// Training
 			auto indices = randomCombination(trainingCount_);
 			for (int i : indices) {
 				const int shift = i * dataSize_;
-				nn.train(trainingData.begin() + shift, pData_[shift + dataSize_ - 1]);
+				double d1 = pData_[shift];
+				double d2 = pData_[shift + 1];
+				double d3 = pData_[shift + 2];
+				nn.train(pData_.get() + shift, pData_[shift + dataSize_ - 1]);
 			}
-			oldError = newError;
-			newError = testing();
 		}
+		oldError = newError;
+		newError = testing();
 	}
+	return newError / dataCount_;
 }
 
 std::vector<int> Trainer::randomCombination(int max) {

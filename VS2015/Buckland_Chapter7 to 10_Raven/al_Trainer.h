@@ -12,21 +12,14 @@ namespace al {
 	public:
 		Trainer(Attributes attributes, std::vector<std::vector<Record> const*> pRecords);
 
-		void train(NeuralNetwork& nn) const;
+		double train(NeuralNetwork& nn, double errorAccepted = 0.01, int passesBetweenChecks = 1000) const;
 		static std::vector<int> randomCombination(int max);
 
 		int dataCount() const { return dataCount_; }
 		int dataSize() const { return dataSize_; }
 
-		struct DataSpan {
-			friend class Trainer;
-			double const* begin() const { return begin_; }
-			double const* end() const { return end_; }
-		private:
-			double const* begin_;
-			double const* end_;
-		};
-		DataSpan trainingData;
+		double const* begin() const { return pData_.get(); }
+		double const* end() const { return pData_.get() + dataCount_ * dataSize_; }
 	private:
 		Attributes attributes_;
 		int dataCount_;

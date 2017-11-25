@@ -70,20 +70,26 @@ bool Tests::run() {
 
 			auto config = NeuralNetwork::Config {};
 			config.inputsCount = 2;
-			config.learningStep = 0.1;
-			config.layerSize = 2;
-			config.layersCount = 1;
+			config.learningStep = 3.0;
+			config.layerSize = 5;
+			config.layersCount = 2;
 			auto nn = NeuralNetwork{ config };
 
-			trainer.train(nn);
+			double avgError = trainer.train(nn, 0.01, 1000);
+			REQUIRE(avgError < 0.01, "Training failed");
 
-			auto it = trainer.trainingData.begin();
-			while (it != trainer.trainingData.end()) {
+			int errorCount = 0;
+
+			auto it = trainer.begin();
+			while (it != trainer.end()) {
 				double output = nn.evaluate(it);
 				double res = it[trainer.dataSize() - 1];
-				REQUIRE(std::abs(output - res) < 0.5, "Training failed");
+				if (abs(output - res) >= 0.5) {
+					++errorCount;
+				}
 				it += trainer.dataSize();
 			}
+			REQUIRE(errorCount < trainer.dataCount() * 0.05, "More than 5% of tests failed");
 
 			return true;
 		} }
