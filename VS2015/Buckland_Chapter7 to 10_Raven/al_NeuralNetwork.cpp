@@ -14,8 +14,8 @@ NeuralNetwork::NeuralNetwork(Config const& config) :
 		1), genann_free}
 {}
 
-void NeuralNetwork::train(double const* inputs, double output) {
-	genann_train(pGenann_.get(), inputs, &output, config_.learningStep);
+void NeuralNetwork::train(double const* inputs, double output, double learningStep) {
+	genann_train(pGenann_.get(), inputs, &output, learningStep);
 }
 
 double NeuralNetwork::evaluate(double const* inputs) const {

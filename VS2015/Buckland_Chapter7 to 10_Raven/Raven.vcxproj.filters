@@ -295,7 +295,7 @@
     <ClCompile Include="genann\genann.c">
       <Filter>attack-learning</Filter>
     </ClCompile>
-    <ClCompile Include="al_Trainer.cpp">
+    <ClCompile Include="al_Training.cpp">
       <Filter>attack-learning</Filter>
     </ClCompile>
   </ItemGroup>
@@ -663,7 +663,7 @@
     <ClInclude Include="genann\genann.h">
       <Filter>attack-learning</Filter>
     </ClInclude>
-    <ClInclude Include="al_Trainer.h">
+    <ClInclude Include="al_Training.h">
       <Filter>attack-learning</Filter>
     </ClInclude>
   </ItemGroup>

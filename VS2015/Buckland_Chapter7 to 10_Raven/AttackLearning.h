@@ -7,4 +7,4 @@
 #include "al_Record.h"
 #include "al_DataFile.h"
 #include "al_NeuralNetwork.h"
-#include "al_Trainer.h"
+#include "al_Training.h"

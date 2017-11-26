@@ -66,30 +66,35 @@ bool Tests::run() {
 			// Attributes : X1, X2 and the output
 			auto attr = Attributes::LastFlag | Attributes::FirstFlag | (Attributes::FirstFlag << 1);
 			auto dataFile = resources().open(fileName);
-			auto trainer = Trainer{ attr, {&dataFile.records()} };
+			auto records = PackedRecords{ attr, {&dataFile.records()} };
 
-			auto config = NeuralNetwork::Config {};
-			config.inputsCount = 2;
-			config.learningStep = 3.0;
-			config.layerSize = 5;
-			config.layersCount = 2;
-			auto nn = NeuralNetwork{ config };
+			auto nnConfig = NeuralNetwork::Config {};
+			nnConfig.inputsCount = 2;
+			nnConfig.layerSize = 5;
+			nnConfig.layersCount = 2;
+			auto nn = NeuralNetwork{ nnConfig };
 
-			double avgError = trainer.train(nn, 0.01, 1000);
-			REQUIRE(avgError < 0.01, "Training failed");
+			auto trainConfig = TrainConfig{};
+			trainConfig.learningStep = 2.0;
+			trainConfig.errorAccepted = 0.03;
+			trainConfig.passesBetweenChecks = 1000;
+			trainConfig.trainingSampleRatio = 0.67;
+
+			double avgError = train(nn, records, trainConfig);
+			REQUIRE(avgError < trainConfig.errorAccepted, "Training failed");
 
 			int errorCount = 0;
-
-			auto it = trainer.begin();
-			while (it != trainer.end()) {
+			int testSampleCount = static_cast<int>((1 - trainConfig.trainingSampleRatio) * records.dataCount());
+			auto it = records.begin() + records.dataSize() * (records.dataCount() - testSampleCount);
+			while (it != records.end()) {
 				double output = nn.evaluate(it);
-				double res = it[trainer.dataSize() - 1];
+				double res = it[records.dataSize() - 1];
 				if (abs(output - res) >= 0.5) {
 					++errorCount;
 				}
-				it += trainer.dataSize();
+				it += records.dataSize();
 			}
-			REQUIRE(errorCount < trainer.dataCount() * 0.05, "More than 5% of tests failed");
+			REQUIRE(errorCount < trainConfig.errorAccepted * testSampleCount, "Sample tests failed");
 
 			return true;
 		} }

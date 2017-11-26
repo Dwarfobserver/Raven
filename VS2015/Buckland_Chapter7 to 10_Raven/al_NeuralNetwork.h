@@ -1,7 +1,6 @@
 ﻿
 #pragma once
 
-#include <vector>
 #include <memory>
 
 
@@ -15,11 +14,10 @@ namespace al {
 			int inputsCount;
 			int layersCount;
 			int layerSize;
-			double learningStep;
 		};
 		explicit NeuralNetwork(Config const& config);
 		
-		void train(double const* inputs, double output);
+		void train(double const* inputs, double output, double learningStep);
 		double evaluate(double const* inputs) const;
 
 		Config const& config() const { return config_; }
