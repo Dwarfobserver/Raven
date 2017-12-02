@@ -25,7 +25,7 @@
 
 #include "goals/Goal_Think.h"
 #include "goals/Raven_Goal_Types.h"
-
+#include "debug/DebugConsole.h"
 
 
 //uncomment to write object creation/deletion to debug console
@@ -456,19 +456,11 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
   //position
   if (m_pSelectedBot->isPossessed())
   {
-    //if the shift key is pressed down at the same time as clicking then the
-    //movement command will be queued
-    if (IS_KEY_PRESSED('Q'))
-    {
-      m_pSelectedBot->GetBrain()->QueueGoal_MoveToPosition(POINTStoVector(p));
-    }
-    else
-    {
-      //clear any current goals
-      m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+    //clear any current goals
+    m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
 
-      m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
-    }
+    m_pSelectedBot->GetBrain()->AddGoal_MoveToPosition(POINTStoVector(p));
+    
   }
 }
 
@@ -677,6 +669,19 @@ Raven_Game::GetPosOfClosestSwitch(Vector2D botPos, unsigned int doorID)const
 
   return closest;
 }
+
+Vector2D Raven_Game::GetUserDirection() const
+{
+	Vector2D direction;
+	if (IS_KEY_PRESSED('Z')) direction.y = -1;
+	if (IS_KEY_PRESSED('Q')) direction.x = -1;
+	if (IS_KEY_PRESSED('S')) direction.y = 1;
+	if (IS_KEY_PRESSED('D')) direction.x = 1;
+	direction.Normalize();
+	return direction;
+
+}
+
 
 
 

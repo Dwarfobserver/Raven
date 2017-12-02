@@ -161,6 +161,16 @@ void Raven_Bot::Update()
     //and takes a shot if a shot is possible
     m_pWeaponSys->TakeAimAndShoot();
   }
+  else
+  {
+	  Vector2D direction;
+	  if(!(direction = m_pWorld->GetUserDirection()).isZero())
+	  {
+		  GetBrain()->RemoveAllSubgoals();
+		  GetBrain()->AddGoal_MoveToPosition(Pos() + 5 * direction);
+	  }
+	  
+  }
 }
 
 

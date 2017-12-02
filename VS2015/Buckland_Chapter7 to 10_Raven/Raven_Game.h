@@ -80,6 +80,7 @@ private:
   //must be notified so that they can remove any references to that bot from
   //their memory
   void NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const;
+
   
 public:
   
@@ -152,6 +153,9 @@ public:
   void        GetPlayerInput()const;
   Raven_Bot*  PossessedBot()const{return m_pSelectedBot;}
   void        ChangeWeaponOfPossessedBot(unsigned int weapon)const;
+
+  //added methods to change the control of possessed bot
+  Vector2D	  GetUserDirection() const;
 
   
   const Raven_Map* const                   GetMap()const{return m_pMap;}
