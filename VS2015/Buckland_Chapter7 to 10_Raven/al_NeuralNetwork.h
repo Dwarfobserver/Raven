@@ -8,6 +8,7 @@ struct genann;
 
 namespace al {
 
+	class Record;
 	class NeuralNetwork {
 	public:
 		struct Config {
@@ -19,6 +20,7 @@ namespace al {
 		
 		void train(double const* inputs, double output, double learningStep);
 		double evaluate(double const* inputs) const;
+		double evaluate(Record const& record) const;
 
 		Config const& config() const { return config_; }
 	private:

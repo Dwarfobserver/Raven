@@ -87,7 +87,14 @@ bool Tests::run() {
 			int testSampleCount = static_cast<int>((1 - trainConfig.trainingSampleRatio) * records.dataCount());
 			auto it = records.begin() + records.dataSize() * (records.dataCount() - testSampleCount);
 			while (it != records.end()) {
-				double output = nn.evaluate(it);
+				double d1 = it[0];
+				double d2 = it[1];
+				double d3 = it[2];
+				Record r;
+				r[Attributes::FirstFlag] = it[0];
+				r[Attributes::FirstFlag << 1] = it[1];
+
+				double output = nn.evaluate(r);
 				double res = it[records.dataSize() - 1];
 				if (abs(output - res) >= 0.5) {
 					++errorCount;
