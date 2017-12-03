@@ -87,9 +87,6 @@ bool Tests::run() {
 			int testSampleCount = static_cast<int>((1 - trainConfig.trainingSampleRatio) * records.dataCount());
 			auto it = records.begin() + records.dataSize() * (records.dataCount() - testSampleCount);
 			while (it != records.end()) {
-				double d1 = it[0];
-				double d2 = it[1];
-				double d3 = it[2];
 				Record r;
 				r[Attributes::FirstFlag] = it[0];
 				r[Attributes::FirstFlag << 1] = it[1];

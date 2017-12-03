@@ -40,6 +40,9 @@ private:
 
 private:
 
+  //determinate if the bot must get his fire decision from a nn or not
+  bool								 m_Clumsy;
+
   //alive, dead or spawning?
   Status                             m_Status;
 
@@ -156,10 +159,12 @@ public:
   bool          isDead()const{return m_Status == dead;}
   bool          isAlive()const{return m_Status == alive;}
   bool          isSpawning()const{return m_Status == spawning;}
+  bool			isClumsy()const{return m_Clumsy;}
   
   void          SetSpawning(){m_Status = spawning;}
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
+  void			SetClumsism(bool clumsism){m_Clumsy = clumsism;}
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.

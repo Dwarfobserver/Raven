@@ -6,9 +6,11 @@
 #include "misc/cgdi.h"
 #include "misc/Stream_Utility_Functions.h"
 #include "Raven_Feature.h"
-
+#include "../Raven_Game.h"
+#include "../Raven_Map.h"
 
 #include "debug/DebugConsole.h"
+#include "2d/WallIntersectionTests.h"
 
 //------------------ CalculateDesirability ------------------------------------
 //
@@ -22,14 +24,40 @@ double AttackTargetGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
   //only do the calculation if there is a target present
   if (pBot->GetTargetSys()->isTargetPresent()) 
   {
-     const double Tweaker = 1.0;
+	  const auto healthRatio = Raven_Feature::Health(pBot);
+	  const auto weaponsRatio = Raven_Feature::TotalWeaponStrength(pBot);
 
-     Desirability = Tweaker *
-                    Raven_Feature::Health(pBot) * 
-                    Raven_Feature::TotalWeaponStrength(pBot);
 
-     //bias the value according to the personality of the bot
-     Desirability *= m_dCharacterBias;
+	  if (pBot->isClumsy())
+	  {
+		  auto pWorld = pBot->GetWorld();
+		  auto pTarget = pBot->GetTargetBot();
+
+		  double distance = Vec2DDistanceSq(pBot->Pos(), pTarget->Pos());
+
+		  bool sight= doWallsObstructLineSegment(
+			  pBot->Pos(),
+			  pTarget->Pos(),
+			  pWorld->GetMap()->GetWalls());
+
+		  al::Record r;
+		  r[al::Attributes::TargetDistance] = distance;
+		  r[al::Attributes::LineOfSight] = !sight ? 1.0 : 0.0;
+		  r[al::Attributes::OwnerLife] = healthRatio;
+		  r[al::Attributes::AmmoCount] = weaponsRatio;
+
+		  Desirability = pWorld->neuralNetwork.evaluate(r);
+	  }
+	  else {
+		  const double Tweaker = 1.0;
+
+		  Desirability = Tweaker * healthRatio * weaponsRatio;
+
+	  }
+
+	  //bias the value according to the personality of the bot
+	  Desirability *= m_dCharacterBias;
+     
   }
     
   return Desirability;

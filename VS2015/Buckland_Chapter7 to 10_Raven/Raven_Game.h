@@ -18,6 +18,9 @@
 #include <string>
 #include <list>
 
+
+#include "AttackLearning.h"
+
 #include "graph/SparseGraph.h"
 #include "Raven_ObjectEnumerations.h"
 #include "2d/Wall2D.h"
@@ -83,6 +86,7 @@ private:
 
   
 public:
+	al::NeuralNetwork neuralNetwork;
   
   Raven_Game();
   ~Raven_Game();

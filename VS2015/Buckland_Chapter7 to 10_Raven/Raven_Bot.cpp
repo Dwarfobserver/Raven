@@ -497,6 +497,8 @@ void Raven_Bot::Render()
   if (isDead() || isSpawning()) return;
   
   gdi->BluePen();
+  if (this->isClumsy())
+	  gdi->OrangePen();
   
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
                                    Pos(),

@@ -31,6 +31,36 @@
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
 
+namespace {
+	al::NeuralNetwork create_network()
+	{
+		al::NeuralNetwork::Config config;
+		config.inputsCount = 4;
+		config.layersCount = 1;
+		config.layerSize = 3;
+
+		return al::NeuralNetwork{ config };
+	}
+
+	void train_network(al::NeuralNetwork& nn)
+	{
+		auto file = al::resources().open("learnLoS");
+		auto& records = file.records();
+		auto package = al::PackedRecords{ records.front().attributes(), {&records} };
+		al::TrainConfig config;
+		config.errorAccepted = 0.001;
+		config.learningStep = 1;
+		config.passesBetweenChecks = 100;
+		config.trainingSampleRatio = 0.67;
+		al::train(nn, package, config);
+
+		al::Record r;
+		r[al::Attributes::TargetDistance] = 0.5;
+		r[al::Attributes::AmmoCount] = 0.5;
+		r[al::Attributes::OwnerLife] = 0.5;
+		r[al::Attributes::LineOfSight] = 1;
+	}
+}
 
 //----------------------------- ctor ------------------------------------------
 //-----------------------------------------------------------------------------
@@ -39,8 +69,10 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_bRemoveABot(false),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
-                         m_pGraveMarkers(NULL)
+                         m_pGraveMarkers(NULL),
+						 neuralNetwork(create_network())
 {
+	train_network(neuralNetwork);
   //load in the default map
   LoadMap(script->GetString("StartMap"));
 }
@@ -251,6 +283,8 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //create a bot. (its position is irrelevant at this point because it will
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+
+	rb->SetClumsism(NumBotsToAdd == 0);
 
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();

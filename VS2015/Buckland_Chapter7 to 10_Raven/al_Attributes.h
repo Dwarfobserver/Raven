@@ -18,7 +18,7 @@ namespace al {
 		TargetDistance = 1 << 1,
 		AmmoCount =      1 << 2,
 		OwnerLife =      1 << 3,
-		Attrib5 =        1 << 4,
+		LineOfSight =    1 << 4,
 		Attrib6 =		 1 << 5,
 		Attrib7 =	  	 1 << 6,
 		Decision =		 1 << 7

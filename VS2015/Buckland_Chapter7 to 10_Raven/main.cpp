@@ -440,7 +440,16 @@ int WINAPI WinMain (HINSTANCE hInstance,
                     int       iCmdShow)
 {
 	// Comment this line to skip attack learning tests
-	if (!al::Tests::run()) return 0;
+	//if (!al::Tests::run()) return 0;
+
+	al::Record r;
+	r[al::Attributes::TargetDistance] = 1;
+	r[al::Attributes::LineOfSight] = 1;
+	r[al::Attributes::OwnerLife] = 1;
+	r[al::Attributes::AmmoCount] = 1;
+	r[al::Attributes::Decision] = 0.5;
+
+	//al::resources().create("gggggg", r.attributes());
 
   MSG msg;
   //handle to our window
