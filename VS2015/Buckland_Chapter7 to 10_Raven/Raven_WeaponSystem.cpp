@@ -344,28 +344,32 @@ void Raven_WeaponSystem::RenderWeaponState()
 	gdi->TransparentText();
 
 	if(GetCurrentWeapon()->GetType() == type_blaster) gdi->TextColor(0, 0, 255);
+	else gdi->TextColor(255, 0, 0);
 	renderPos = refPos;
-	line = "1 | Blaster : infinite";
+	line = "1 | " + GetNameOfType(type_blaster) + " : " + "infinite";
 	gdi->TextAtPos(renderPos, line);
 	if (GetCurrentWeapon()->GetType() == type_blaster) gdi->TextColor(255, 0, 0);
 
 	if (GetCurrentWeapon()->GetType() == type_shotgun) gdi->TextColor(0, 0, 255);
+	else gdi->TextColor(255, 0, 0);
 	renderPos += lineSpace;
-	line = "2 | Shot Gun : ";
+	line = "2 | " + GetNameOfType(type_shotgun) + " : ";
 	line.append(std::to_string(GetAmmoRemainingForWeapon(type_shotgun)));
 	gdi->TextAtPos(renderPos, line);
 	if (GetCurrentWeapon()->GetType() == type_shotgun) gdi->TextColor(255, 0, 0);
 
 	if (GetCurrentWeapon()->GetType() == type_rocket_launcher) gdi->TextColor(0, 0, 255);
+	else gdi->TextColor(255, 0, 0);
 	renderPos += lineSpace;
-	line = "3 | Rocket Launcher : ";
+	line = "3 | " + GetNameOfType(type_rocket_launcher) + " : ";
 	line.append(std::to_string(GetAmmoRemainingForWeapon(type_rocket_launcher)));
 	gdi->TextAtPos(renderPos, line);
 	if (GetCurrentWeapon()->GetType() == type_rocket_launcher) gdi->TextColor(255, 0, 0);
 
 	if (GetCurrentWeapon()->GetType() == type_rail_gun) gdi->TextColor(0, 0, 255);
+	else gdi->TextColor(255, 0, 0);
 	renderPos += lineSpace;
-	line = "4 | Rail Gun : ";
+	line = "4 | " + GetNameOfType(type_rail_gun) + " : ";
 	line.append(std::to_string(GetAmmoRemainingForWeapon(type_rail_gun)));
 	gdi->TextAtPos(renderPos, line);
 	if (GetCurrentWeapon()->GetType() == type_rail_gun) gdi->TextColor(255, 0, 0);
