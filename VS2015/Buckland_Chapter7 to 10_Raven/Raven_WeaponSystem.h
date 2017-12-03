@@ -108,6 +108,7 @@ public:
 
   void          RenderCurrentWeapon()const;
   void          RenderDesirabilities()const;
+  void			RenderWeaponState();
 };
 
 #endif

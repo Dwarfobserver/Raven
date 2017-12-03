@@ -450,6 +450,7 @@ void Raven_Game::ClickRightMouseButton(POINTS p)
 
     //clear any current goals
     m_pSelectedBot->GetBrain()->RemoveAllSubgoals();
+	UserOptions->m_bOnlyShowBotsInTargetsFOV = true;
   }
 
   //if the bot is possessed then a right click moves the bot to the cursor
@@ -696,6 +697,12 @@ void Raven_Game::Render()
   //render the map
   m_pMap->Render();
 
+  //render a list of weapon and amo for selected bot
+  if(m_pSelectedBot)
+  {
+	  m_pSelectedBot->GetWeaponSys()->RenderWeaponState();
+  }
+
   //render all the bots unless the user has selected the option to only 
   //render those bots that are in the fov of the selected bot
   if (m_pSelectedBot && UserOptions->m_bOnlyShowBotsInTargetsFOV)
@@ -790,12 +797,6 @@ void Raven_Game::Render()
     if (UserOptions->m_bShowWeaponAppraisals)
     {
       m_pSelectedBot->GetWeaponSys()->RenderDesirabilities();
-    }
-
-   if (IS_KEY_PRESSED('Q') && m_pSelectedBot->isPossessed())
-    {
-      gdi->TextColor(255,0,0);
-      gdi->TextAtPos(GetClientCursorPosition(), "Queuing");
     }
   }
 }
