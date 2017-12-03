@@ -185,7 +185,39 @@ void Raven_WeaponSystem::TakeAimAndShoot()const
   {
     //the position the weapon will be aimed at
     Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
-    
+
+
+	///*
+	//	Ici on prend en compte la vitesse du bot
+    //  Le code est grave pourri, j'ai tenter de déduire le fonctionnement du fuzzyModule mais pas possible de tester les déduction....
+	
+		double botSpd = p_pOwner->GetTargetBot()->GetSteering()->m_vSteeringForce(). ; //Avec la force on peut avoir la vitesse (bon ok les math sont off mais c'est Okay)
+
+		FuzzyModule fuzzyMachine = new FuzzyModule(); //On crée un fuzzy module
+
+		FuzzyVariable _spd = fuzzyMachine.CreateFLV("spd"); //On Ajoute une variable spd qui repréésente la vitesse du bot
+
+		FzSet _isMov = _spd.AddRightShoulderSet("isMoving", 0.1, MaxDouble, MaxDouble); //On crée un set qui indique que le bot bouge 
+
+		_spd.Fuzzify(botSpd); //On lui donne la vitesse de la cible
+
+		//En Input on pourrais mettre le temps et en sortit la precission ça permetrais d'avoir un bot qui moins précis si il quick shot
+
+		FuzzyVariable _deriv = fuzzyMachine.CreateFLV("deriv"); //On crée le set de sorti pour le pointage 
+
+		FzSet _derivSet = _deriv.AddRightShoulderSet("deriv", 0, 90, 90); // On vise "à coté" avec un angle maximum de 90, vaudrais que le bot aille vraiment vite
+		
+		FuzzyRule _r = new FuzzyRule(_isMov, _derivSet); // On fais la rule  
+
+		// Là On recrée a chaque fois la machine mauvaise plan  
+
+		fuzzyMachine.DeFuzzify("deriv"); //On resort la deriv ( calcule fais automatiquement ? )
+
+		//Ensuite on prend si le bot est a gauche ou a droite puis on applique la rotation au vecteur AimingPos
+	
+	//*/
+
+
     //if the current weapon is not an instant hit type gun the target position
     //must be adjusted to take into account the predicted movement of the 
     //target
