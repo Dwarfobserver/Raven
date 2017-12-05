@@ -250,9 +250,9 @@ void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos)
   fuzzyModule.Fuzzify("TargetVelocity", m_pOwner->GetTargetBot()->Speed());
   fuzzyModule.Fuzzify("VisibleTime", m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible());
 
-  double noiseCoeff = fuzzyModule.DeFuzzify("NoiseCoef", FuzzyModule::max_av);
+  double noiseToAdd = fuzzyModule.DeFuzzify("NoiseToAdd", FuzzyModule::max_av);
 
-  Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy - noiseCoeff, m_dAimAccuracy + noiseCoeff));
+  Vec2DRotateAroundOrigin(toPos, RandInRange(-m_dAimAccuracy - noiseToAdd, m_dAimAccuracy + noiseToAdd));
 
   AimingPos = toPos + m_pOwner->Pos();
 }
@@ -260,7 +260,7 @@ void Raven_WeaponSystem::AddNoiseToAim(Vector2D& AimingPos)
 void Raven_WeaponSystem::InitializeFuzzyModule()
 {
 	// initialisation du FuzzyModule
-	FuzzyVariable& NoiseCoef = fuzzyModule.CreateFLV("NoiseCoef");
+	FuzzyVariable& NoiseToAdd = fuzzyModule.CreateFLV("NoiseToAdd");
 
 	FzSet& VeryAccurate = NoiseCoef.AddLeftShoulderSet("VeryAccurate", 0.0, 0.0, 0.1);
 	FzSet& Accurate = NoiseCoef.AddTriangularSet("Accurate", 0.0, 0.1, 0.3);
