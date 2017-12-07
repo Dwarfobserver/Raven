@@ -99,7 +99,9 @@ public:
   bool LoadMap(const std::string& FileName); 
 
   void AddBots(unsigned int NumBotsToAdd);
-  void AddRocket(Raven_Bot* shooter, Vector2D target);
+	void AddBlueBots(unsigned NumBotsToAdd);
+	void AddRedBots(unsigned NumBotsToAdd);
+	void AddRocket(Raven_Bot* shooter, Vector2D target);
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
   void AddBolt(Raven_Bot* shooter, Vector2D target);

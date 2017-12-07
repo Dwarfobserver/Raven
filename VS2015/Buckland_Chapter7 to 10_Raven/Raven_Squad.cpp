@@ -1,8 +1,11 @@
 #include "Raven_Squad.h"
+#include "debug/DebugConsole.h"
 
 
+std::list<Raven_Squad*> Raven_Squad::squadList;
 
-Raven_Squad::Raven_Squad(Raven_Bot* leader):leader(leader)
+Raven_Squad::Raven_Squad(Raven_Bot* leader, int color):leader(leader),
+														color(color)
 {
 	leader->squad = this;
 }
@@ -20,3 +23,27 @@ void Raven_Squad::updateTarget()
 		membre->GetTargetSys()->SetTarget(target);
 	}
 }
+
+void Raven_Squad::addToSquad(Raven_Bot* bot, int color)
+{
+	Raven_Squad* squad = nullptr;
+	for (Raven_Squad* a : Raven_Squad::squadList)
+	{
+		if (a->color == color)
+		{
+			squad = a;
+		}
+	}
+
+	if (squad == nullptr)
+	{
+		squad = new Raven_Squad(bot, color);
+		squadList.push_back(squad);
+	}
+	else
+	{
+		squad->addBot(bot);
+	}
+}
+
+

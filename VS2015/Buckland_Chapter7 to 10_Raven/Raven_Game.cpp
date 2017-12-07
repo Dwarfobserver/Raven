@@ -16,6 +16,7 @@
 #include "messaging/MessageDispatcher.h"
 #include "Raven_Messages.h"
 #include "GraveMarkers.h"
+#include "Raven_Squad.h"
 
 #include "armory/Raven_Projectile.h"
 #include "armory/Projectile_Rocket.h"
@@ -300,6 +301,68 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
   }
+}
+
+//-------------------------- AddBlueBots --------------------------------------
+//
+//  Adds a bot and switches on the default steering behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::AddBlueBots(unsigned int NumBotsToAdd)
+{
+	while (NumBotsToAdd--)
+	{
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+		Raven_Squad::addToSquad(rb, 0);
+
+		rb->SetClumsism(0);
+
+		//switch the default steering behaviors on
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
+
+		m_Bots.push_back(rb);
+
+		//register the bot with the entity manager
+		EntityMgr->RegisterEntity(rb);
+
+
+#ifdef LOG_CREATIONAL_STUFF
+		debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
+#endif
+	}
+}
+
+//-------------------------- AddRedBots --------------------------------------
+//
+//  Adds a bot and switches on the default steering behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::AddRedBots(unsigned int NumBotsToAdd)
+{
+	while (NumBotsToAdd--)
+	{
+		//create a bot. (its position is irrelevant at this point because it will
+		//not be rendered until it is spawned)
+		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+		Raven_Squad::addToSquad(rb, 1);
+
+		rb->SetClumsism(0);
+
+		//switch the default steering behaviors on
+		rb->GetSteering()->WallAvoidanceOn();
+		rb->GetSteering()->SeparationOn();
+
+		m_Bots.push_back(rb);
+
+		//register the bot with the entity manager
+		EntityMgr->RegisterEntity(rb);
+
+
+#ifdef LOG_CREATIONAL_STUFF
+		debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
+#endif
+	}
 }
 
 //---------------------------- NotifyAllBotsOfRemoval -------------------------

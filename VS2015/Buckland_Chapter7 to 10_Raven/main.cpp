@@ -222,12 +222,13 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           break;
 
 	  case IDM_GAME_ADDBLUEBOT:
-		  debug_con << "add blue bot" << "";
+
+		  g_pRaven->AddBlueBots(1);
 		  break;
 
 	  case IDM_GAME_ADDREDBOT:
-		  debug_con << "add red bot" << "";
-		  break;
+		  g_pRaven->AddRedBots(1);
+     	  break;
 
       case IDM_GAME_REMOVEBOT:
           

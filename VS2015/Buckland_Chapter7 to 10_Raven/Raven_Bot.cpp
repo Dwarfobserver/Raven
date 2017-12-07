@@ -500,6 +500,12 @@ void Raven_Bot::Render()
   gdi->GreyPen();
   if (this->isClumsy())
 	  gdi->OrangePen();
+  if (squad != nullptr) {
+	  if (this->squad->color == 0)
+		  gdi->BluePen();
+	  else if (this->squad->color == 1)
+		  gdi->RedPen();
+  }
   
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
                                    Pos(),
