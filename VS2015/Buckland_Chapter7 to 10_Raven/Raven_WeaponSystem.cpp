@@ -262,9 +262,9 @@ void Raven_WeaponSystem::InitializeFuzzyModule()
 	// initialisation du FuzzyModule
 	FuzzyVariable& NoiseToAdd = fuzzyModule.CreateFLV("NoiseToAdd");
 
-	FzSet& VeryAccurate = NoiseCoef.AddLeftShoulderSet("VeryAccurate", 0.0, 0.0, 0.1);
-	FzSet& Accurate = NoiseCoef.AddTriangularSet("Accurate", 0.0, 0.1, 0.3);
-	FzSet& Unaccurate = NoiseCoef.AddRightShoulderSet("Unaccurate", 0.1, 0.3, 0.5);
+	FzSet& VeryAccurate = NoiseToAdd.AddLeftShoulderSet("VeryAccurate", 0.0, 0.0, 0.1);
+	FzSet& Accurate = NoiseToAdd.AddTriangularSet("Accurate", 0.0, 0.1, 0.3);
+	FzSet& Unaccurate = NoiseToAdd.AddRightShoulderSet("Unaccurate", 0.1, 0.3, 0.5);
 
 	FuzzyVariable& DistToTarget = fuzzyModule.CreateFLV("DistToTarget");
 
