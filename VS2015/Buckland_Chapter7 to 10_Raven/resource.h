@@ -23,6 +23,10 @@
 #define IDM_NAVIGATION_SMOOTH_PATHS_PRECISE 40015
 #define IDM_BOTS_SHOW_SENSED            40016
 #define IDM_GAME_PAUSE                  40017
+#define IDM_GAME_ADDBLUEBOT				40018
+#define IDM_GAME_ADDREDBOT				40019
+#define IDM_GAME_REMOVEBLUEBOT			40020
+#define IDM_GAME_REMOVEREDBOT			40021
 
 // Next default values for new objects
 // 

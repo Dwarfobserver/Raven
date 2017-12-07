@@ -497,7 +497,7 @@ void Raven_Bot::Render()
 
   if (isDead() || isSpawning()) return;
   
-  gdi->BluePen();
+  gdi->GreyPen();
   if (this->isClumsy())
 	  gdi->OrangePen();
   
