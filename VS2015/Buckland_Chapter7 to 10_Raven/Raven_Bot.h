@@ -16,6 +16,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
+#include "Raven_Squad.h"
 
 
 class Raven_PathPlanner;
@@ -130,7 +131,7 @@ public:
 
 
 	//the owner squad
-	Raven_Squad* squad;
+	//Raven_Squad* squad;
   
   Raven_Bot(Raven_Game* world, Vector2D pos);
   virtual ~Raven_Bot();

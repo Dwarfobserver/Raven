@@ -1,11 +1,10 @@
-#include "Raven_Squad.h"
-#include "Raven_Squad.h"
+/*#include "Raven_Squad.h"
 
 
 
 Raven_Squad::Raven_Squad(Raven_Bot* leader): leader(leader)
 {
-	leader->squad = this;
+	//leader->squad = this;
 }
 
 Raven_Squad::~Raven_Squad()
@@ -19,4 +18,4 @@ void Raven_Squad::updateTarget()
 	{
 		member->GetTargetSys()->SetTarget(target);
 	}
-}
+}*/

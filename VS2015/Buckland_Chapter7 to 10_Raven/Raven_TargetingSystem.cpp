@@ -36,11 +36,11 @@ void Raven_TargetingSystem::Update()
 	  {
 		  ClosestDistSoFar = dist;
 		  m_pCurrentTarget = *curBot;
-		  if (m_pOwner->squad != nullptr) {
+		  /*if (m_pOwner->squad != nullptr) {
 			  if (m_pOwner == m_pOwner->squad->getLeader()) {
 				  m_pOwner->squad->updateTarget();
 			  }
-		  }
+		  }*/
       }
     }
   }
