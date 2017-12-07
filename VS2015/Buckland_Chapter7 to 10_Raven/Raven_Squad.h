@@ -6,22 +6,23 @@ class Raven_Squad
 
 	Raven_Bot* leader;
 
-	std::vector<Raven_Bot*> squad;
+	std::list<Raven_Bot*> squad;
 
 	Raven_Bot* target;
 
 public:
-	Raven_Squad();
+	Raven_Squad(Raven_Bot* leader);
 	~Raven_Squad();
 
-	// Utilisé par le leader
-	void setTarget();
+	void setLeader(Raven_Bot* leader) { this->leader = leader; }
+	Raven_Bot* getLeader() { return leader; }
 
-	// Utilisé par l'escouade
+	void setTarget(Raven_Bot* target) { this->target = target; }
 	Raven_Bot* getTarget(){ return target; }
 
-	// ajoute un bot à l'escouade
-	void addBot(Raven_Bot);
-	// retire 
+	void addBot(Raven_Bot* member) { squad.push_back(member); member->squad = this; }
+	void removeBot(Raven_Bot* member) { squad.pop_back(); member->squad = nullptr; }
+
+	void updateTarget();
 };
 

@@ -127,6 +127,10 @@ private:
 
 
 public:
+
+
+	//the owner squad
+	Raven_Squad* squad;
   
   Raven_Bot(Raven_Game* world, Vector2D pos);
   virtual ~Raven_Bot();

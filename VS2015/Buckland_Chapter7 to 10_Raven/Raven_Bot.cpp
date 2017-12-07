@@ -133,7 +133,7 @@ void Raven_Bot::Update()
   {           
     //examine all the opponents in the bots sensory memory and select one
     //to be the current target
-    if (m_pTargetSelectionRegulator->isReady())
+    if (m_pTargetSelectionRegulator->isReady() && ( squad == nullptr || this == squad->getLeader() )) 
     {      
       m_pTargSys->Update();
     }
