@@ -16,7 +16,6 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
-#include "Raven_Squad.h"
 
 
 class Raven_PathPlanner;
@@ -29,6 +28,7 @@ class Raven_Bot;
 class Goal_Think;
 class Raven_WeaponSystem;
 class Raven_SensoryMemory;
+class Raven_Squad;
 
 
 
@@ -128,13 +128,13 @@ private:
 
 
 public:
-
-
-	//the owner squad
-	//Raven_Squad* squad;
   
   Raven_Bot(Raven_Game* world, Vector2D pos);
   virtual ~Raven_Bot();
+
+
+  //the bot squad
+  Raven_Squad* squad{};
 
   //the usual suspects
   void         Render();

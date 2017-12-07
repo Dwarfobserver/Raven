@@ -1,6 +1,7 @@
 #include "Raven_TargetingSystem.h"
 #include "Raven_Bot.h"
 #include "Raven_SensoryMemory.h"
+#include "Raven_Squad.h"
 
 
 
@@ -36,11 +37,11 @@ void Raven_TargetingSystem::Update()
 	  {
 		  ClosestDistSoFar = dist;
 		  m_pCurrentTarget = *curBot;
-		  /*if (m_pOwner->squad != nullptr) {
+		  if (m_pOwner->squad != nullptr) {
 			  if (m_pOwner == m_pOwner->squad->getLeader()) {
 				  m_pOwner->squad->updateTarget();
 			  }
-		  }*/
+		  }
       }
     }
   }

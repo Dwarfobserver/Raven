@@ -11,6 +11,7 @@
 #include "time/Regulator.h"
 #include "Raven_WeaponSystem.h"
 #include "Raven_SensoryMemory.h"
+#include "Raven_Squad.h"
 
 #include "Messaging/Telegram.h"
 #include "Raven_Messages.h"
@@ -133,7 +134,7 @@ void Raven_Bot::Update()
   {           
     //examine all the opponents in the bots sensory memory and select one
     //to be the current target
-    if (m_pTargetSelectionRegulator->isReady() /*&& ( squad == nullptr || this == squad->getLeader() )*/) 
+    if (m_pTargetSelectionRegulator->isReady() && ( squad == nullptr || this == squad->getLeader() )) 
     {      
       m_pTargSys->Update();
     }

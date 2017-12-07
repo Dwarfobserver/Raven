@@ -298,6 +298,9 @@
     <ClCompile Include="al_Training.cpp">
       <Filter>attack-learning</Filter>
     </ClCompile>
+    <ClCompile Include="Raven_Squad.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -666,6 +669,7 @@
     <ClInclude Include="al_Training.h">
       <Filter>attack-learning</Filter>
     </ClInclude>
+    <ClInclude Include="Raven_Squad.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">
