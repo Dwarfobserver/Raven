@@ -301,6 +301,12 @@
     <ClCompile Include="Raven_Squad.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="goals\Goal_DodgyWalk.cpp">
+      <Filter>AI\goals\atomic</Filter>
+    </ClCompile>
+    <ClCompile Include="goals\Goal_SafeTrip.cpp">
+      <Filter>AI\goals\composite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -670,6 +676,12 @@
       <Filter>attack-learning</Filter>
     </ClInclude>
     <ClInclude Include="Raven_Squad.h" />
+    <ClInclude Include="goals\Goal_DodgyWalk.h">
+      <Filter>AI\goals\atomic</Filter>
+    </ClInclude>
+    <ClInclude Include="goals\Goal_SafeTrip.h">
+      <Filter>AI\goals\composite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

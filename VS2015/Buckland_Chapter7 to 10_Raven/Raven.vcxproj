@@ -223,6 +223,8 @@
     <ClCompile Include="al_Record.cpp" />
     <ClCompile Include="al_Tests.cpp" />
     <ClCompile Include="al_Training.cpp" />
+    <ClCompile Include="goals\Goal_DodgyWalk.cpp" />
+    <ClCompile Include="goals\Goal_SafeTrip.cpp" />
     <ClCompile Include="Raven_Squad.cpp" />
     <ClCompile Include="genann\genann.c" />
     <ClCompile Include="main.cpp">
@@ -551,6 +553,8 @@
     <ClInclude Include="al_Training.h" />
     <ClInclude Include="AttackLearning.h" />
     <ClInclude Include="al_DataFile.h" />
+    <ClInclude Include="goals\Goal_DodgyWalk.h" />
+    <ClInclude Include="goals\Goal_SafeTrip.h" />
     <ClInclude Include="Raven_Squad.h" />
     <ClInclude Include="genann\genann.h" />
     <ClInclude Include="Raven_Bot.h" />
