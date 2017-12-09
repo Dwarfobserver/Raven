@@ -33,6 +33,9 @@ int ItemTypeToGoalType(int gt)
 
 	case type_knife:
 		return goal_get_knife;
+	case type_slowering_gun:
+
+		return goal_get_slowering_gun;
 
 	default: throw std::runtime_error("Goal_GetItem cannot determine item type");
 

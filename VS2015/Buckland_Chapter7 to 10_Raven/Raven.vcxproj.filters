@@ -310,6 +310,12 @@
     <ClCompile Include="armory\Knife.cpp">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Weapon_SlowingGun.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="armory\Projectile_SlowRay.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -685,9 +691,18 @@
     <ClInclude Include="goals\Goal_SafeTrip.h">
       <Filter>AI\goals\composite</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="armory\Knife.h">
       <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="armory\Weapon_SlowingGun.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_SlowRay.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClInclude>
+>>>>>>> 3aaf597042061fc271b2a5fec1ffbcb4540c8d04
   </ItemGroup>
   <ItemGroup>
     <None Include="Params.lua">

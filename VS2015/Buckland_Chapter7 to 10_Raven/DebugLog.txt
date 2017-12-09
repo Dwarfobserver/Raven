@@ -69,28 +69,59 @@ Creating a Health
 Creating a Health
 Creating a rocket_launcher
 Creating a Railgun
-Creating a shotgun
-Creating a shotgun
+Creating a slowering_gun
+Creating a slowering_gun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-Player Possesses bot 402
+Player Possesses bot 403
+Is Slash ?
+Throw Slash
+Is Slash ?
+Player Possesses bot 403
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Throw Slash
+BOT 402 IS STUCK!!
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Throw Slash
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
 BOT 401 IS STUCK!!
 Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
 Is Slash ?
 Is Slash ?
 Is Slash ?
@@ -108,112 +139,6 @@ Throw Slash
 Is Slash ?
 Is Slash ?
 Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-SLASH HIT !
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-SLASH HIT !
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-SLASH HIT !
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Is Slash ?
-Throw Slash
 Is Slash ?
 Is Slash ?
 Is Slash ?

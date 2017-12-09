@@ -52,7 +52,7 @@ private:
   Raven_Bot*                       m_pSelectedBot;
   
   //this list contains any active projectiles (slugs, rockets,
-  //shotgun pellets, etc)
+  //shotgun pellets, slow ray etc)
   std::list<Raven_Projectile*>     m_Projectiles;
 
   //this class manages all the path planning requests
@@ -105,6 +105,7 @@ public:
   void AddRailGunSlug(Raven_Bot* shooter, Vector2D target);
   void AddShotGunPellet(Raven_Bot* shooter, Vector2D target);
   void AddBolt(Raven_Bot* shooter, Vector2D target);
+  void AddSlowRay(Raven_Bot* shooter, Vector2D target);
 
   //removes the last bot to be added
   void RemoveBot();

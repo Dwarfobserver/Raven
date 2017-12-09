@@ -10,7 +10,7 @@
 //  Desc:   Base class to define a projectile type. A projectile of the correct
 //          type is created whnever a weapon is fired. In Raven there are four
 //          types of projectile: Slugs (railgun), Pellets (shotgun), Rockets
-//          (rocket launcher ) and Bolts (Blaster) 
+//          (rocket launcher ), SlowRay (SloweringGun) and Bolts (Blaster) 
 //-----------------------------------------------------------------------------
 #include "game/MovingEntity.h"
 #include "2d/Vector2D.h"
@@ -39,6 +39,9 @@ protected:
 
   //how much damage the projectile inflicts
   int           m_iDamageInflicted;
+
+  //how much percentage of slowering the projectile inflicts
+  int			m_iSloweringInflected;
 
   //is it dead? A dead projectile is one that has come to the end of its
   //trajectory and cycled through any explosion sequence. A dead projectile
@@ -70,6 +73,7 @@ public:
                    Vector2D origin,  //the start position of the projectile
                    Vector2D heading,   //the heading of the projectile
                    int      damage,    //how much damage it inflicts
+				   int		speedDecrease, //how much slowering it inflicts
                    double    scale,    
                    double    MaxSpeed, 
                    double    mass,
@@ -88,6 +92,7 @@ public:
                                         m_bImpacted(false),
                                         m_pWorld(world),
                                         m_iDamageInflicted(damage),
+										m_iSloweringInflected(speedDecrease),
                                         m_vOrigin(origin),
                                         m_iShooterID(ShooterID)
                 
