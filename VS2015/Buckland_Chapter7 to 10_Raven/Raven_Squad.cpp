@@ -4,9 +4,9 @@
 
 std::list<Raven_Squad*> Raven_Squad::squadList;
 
-Raven_Squad::Raven_Squad(Raven_Bot* leader, int color):leader(leader),
-														color(color)
+Raven_Squad::Raven_Squad(Raven_Bot* leader, int color):	color(color)
 {
+	squad.push_front(leader);
 	leader->squad = this;
 }
 
@@ -17,7 +17,7 @@ Raven_Squad::~Raven_Squad()
 
 void Raven_Squad::updateTarget()
 {
-	Raven_Bot* target = leader->GetTargetSys()->GetTarget();
+	Raven_Bot* target = getLeader()->GetTargetSys()->GetTarget();
 	for (Raven_Bot* membre : squad)
 	{
 		membre->GetTargetSys()->SetTarget(target);

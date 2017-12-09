@@ -69,6 +69,8 @@ namespace {
 Raven_Game::Raven_Game():m_pSelectedBot(NULL),
                          m_bPaused(false),
                          m_bRemoveABot(false),
+						 m_bRemoveABlueBot(false),
+						 m_bRemoveARedBot(false),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
                          m_pGraveMarkers(NULL),
@@ -213,20 +215,65 @@ void Raven_Game::Update()
 
   //if the user has requested that the number of bots be decreased, remove
   //one
-  if (m_bRemoveABot)
-  { 
-    if (!m_Bots.empty())
-    {
-      Raven_Bot* pBot = m_Bots.back();
-      if (pBot == m_pSelectedBot)m_pSelectedBot=0;
-      NotifyAllBotsOfRemoval(pBot);
-      delete m_Bots.back();
-      m_Bots.remove(pBot);
-      pBot = 0;
-    }
+	if (m_bRemoveABot || m_bRemoveABlueBot || m_bRemoveARedBot)
+	{ 
+		if (!m_Bots.empty())
+		{
+			Raven_Bot* pBot;
+			bool continu = true;
+			std::list<Raven_Bot*>::iterator it = m_Bots.end();
+			it--;
+			if (m_bRemoveABot) {
+				pBot = *it;
+				if (pBot->squad == nullptr) continu = false;
+				while (it != m_Bots.begin() && continu) {
+					it--;
+					pBot = *it;
+					if (pBot->squad == nullptr) continu = false;
+				}
+			}
+			else if (m_bRemoveABlueBot) {
+				pBot = *it;
+				if (pBot->squad != nullptr && pBot->squad->color == 0) {
+					continu = false;
+					(*it)->squad->removeBot(*it);
+				}
+				while (it != m_Bots.begin() && continu) {
+					it--;
+					pBot = *it;
+					if (pBot->squad != nullptr && pBot->squad->color == 0) {
+						continu = false;
+						(*it)->squad->removeBot(*it);
+					}
+				}
+			}
+			else if (m_bRemoveARedBot) {
+				pBot = *it;
+				if (pBot->squad != nullptr && pBot->squad->color == 1) {
+					continu = false;
+					pBot->squad->removeBot(pBot);
+				}
+				while (it != m_Bots.begin() && continu) {
+					it--;
+					pBot = *it;
+					if (pBot->squad != nullptr && pBot->squad->color == 1) {
+						continu = false;
+						pBot->squad->removeBot(pBot);
+					}
+				}
+			}
 
-    m_bRemoveABot = false;
-  }
+			if (pBot == m_pSelectedBot)m_pSelectedBot=0;
+			NotifyAllBotsOfRemoval(pBot);
+			*it = m_Bots.back();
+			delete m_Bots.back();
+			m_Bots.remove(pBot);
+			pBot = 0;
+		}
+		m_bRemoveABot = false;
+		m_bRemoveABlueBot = false;
+		m_bRemoveARedBot = false;
+	}
 }
 
 
@@ -392,6 +439,22 @@ void Raven_Game::NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const
 void Raven_Game::RemoveBot()
 {
   m_bRemoveABot = true;
+}
+//-------------------------------RemoveBlueBot ------------------------------------
+//
+//  removes the last bot to be added from the game
+//-----------------------------------------------------------------------------
+void Raven_Game::RemoveBlueBot()
+{
+	m_bRemoveABlueBot = true;
+}
+//-------------------------------RemoveBot ------------------------------------
+//
+//  removes the last bot to be added from the game
+//-----------------------------------------------------------------------------
+void Raven_Game::RemoveRedBot()
+{
+	m_bRemoveARedBot = true;
 }
 
 //--------------------------- AddBolt -----------------------------------------

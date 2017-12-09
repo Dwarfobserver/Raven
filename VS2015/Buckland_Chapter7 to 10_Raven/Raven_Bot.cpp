@@ -127,6 +127,10 @@ void Raven_Bot::Update()
   m_pBrain->Process();
   
   //Calculate the steering force and update the bot's velocity and position
+	if (this->squad != nullptr && this != squad->getLeader() && squad->color == 0)
+	{
+		m_pPathPlanner->SetDestination(squad->getLeader()->Pos());
+	}
   UpdateMovement();
 
   //if the bot is under AI control but not scripted
