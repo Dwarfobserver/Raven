@@ -110,6 +110,17 @@ void Trigger_WeaponGiver::Render()
             gdi->RedPen();
             gdi->ClosedShape(m_vecRLVBTrans);
         }
+
+	  case type_slowering_gun:
+	  {
+		  gdi->BrownPen();
+		  gdi->BlueBrush();
+		  gdi->Circle(Pos(), 3);
+		  gdi->ThickBluePen();
+		  gdi->Line(Pos(), Vector2D(Pos().x, Pos().y - 9));
+	  }
+
+	  break;
       
         break;
 

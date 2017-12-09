@@ -307,6 +307,12 @@
     <ClCompile Include="goals\Goal_SafeTrip.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Weapon_SlowingGun.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="armory\Projectile_SlowRay.cpp">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -681,6 +687,12 @@
     </ClInclude>
     <ClInclude Include="goals\Goal_SafeTrip.h">
       <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Weapon_SlowingGun.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Projectile_SlowRay.h">
+      <Filter>Game\weapons &amp; projectiles\projectiles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

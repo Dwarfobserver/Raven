@@ -236,23 +236,43 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
   {
   case Msg_TakeThatMF:
 
-    //just return if already dead or spawning
-    if (isDead() || isSpawning()) return true;
+	  //just return if already dead or spawning
+	  if (isDead() || isSpawning()) return true;
 
-    //the extra info field of the telegram carries the amount of damage
-    ReduceHealth(DereferenceToType<int>(msg.ExtraInfo));
+	  //the extra info field of the telegram carries the amount of damage
+	  ReduceHealth(DereferenceToType<int>(msg.ExtraInfo));
 
-    //if this bot is now dead let the shooter know
-    if (isDead())
-    {
-      Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
-                              ID(),
-                              msg.Sender,
-                              Msg_YouGotMeYouSOB,
-                              NO_ADDITIONAL_INFO);
-    }
+	  //if this bot is now dead let the shooter know
+	  if (isDead())
+	  {
+		  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+			  ID(),
+			  msg.Sender,
+			  Msg_YouGotMeYouSOB,
+			  NO_ADDITIONAL_INFO);
+	  }
 
-    return true;
+	  return true;
+
+  case Msg_SlowDown:
+
+	  //just return if already dead or spawning
+	  if (isDead() || isSpawning()) return true;
+
+	  // We freeze the bot for some time
+	  ReduceSpeed();
+
+	  //if this bot is now dead let the shooter know
+	  if (isDead())
+	  {
+		  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+			  ID(),
+			  msg.Sender,
+			  Msg_YouGotMeYouSOB,
+			  NO_ADDITIONAL_INFO);
+	  }
+
+	  return true;
 
   case Msg_YouGotMeYouSOB:
     
@@ -595,4 +615,13 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 {
   m_iHealth+=val; 
   Clamp(m_iHealth, 0, m_iMaxHealth);
+}
+
+void Raven_Bot::ReduceSpeed() 
+{
+	this->m_dMaxSpeed = 0;
+
+	 m_bHit = true;
+
+	 m_iNumUpdatesHitPersistant = (int)(FrameRate * script->GetDouble("HitFlashTime"));
 }

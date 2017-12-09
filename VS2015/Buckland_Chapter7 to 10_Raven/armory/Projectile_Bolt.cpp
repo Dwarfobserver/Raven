@@ -20,7 +20,8 @@ Bolt::Bolt(Raven_Bot* shooter, Vector2D target):
                          shooter->ID(),
                          shooter->Pos(),
                          shooter->Facing(),
-                         script->GetInt("Bolt_Damage"),
+			script->GetInt("Bolt_Damage"),
+			script->GetInt("Bolt_SpeedDecreasePercentage"),
                          script->GetDouble("Bolt_Scale"),
                          script->GetDouble("Bolt_MaxSpeed"),
                          script->GetDouble("Bolt_Mass"),
@@ -63,11 +64,11 @@ void Bolt::Update()
 
       //send a message to the bot to let it know it's been hit, and who the
       //shot came from
-      Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
-                              m_iShooterID,
-                              hit->ID(),
-                              Msg_TakeThatMF,
-                              (void*)&m_iDamageInflicted);
+	  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+		  m_iShooterID,
+		  hit->ID(),
+		  Msg_TakeThatMF,
+		  (void*)&m_iDamageInflicted);
     }
 
     //test for impact with a wall

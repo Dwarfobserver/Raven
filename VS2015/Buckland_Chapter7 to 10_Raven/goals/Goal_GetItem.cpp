@@ -31,6 +31,10 @@ int ItemTypeToGoalType(int gt)
 
 		return goal_get_rocket_launcher;
 
+	case type_slowering_gun:
+
+		return goal_get_slowering_gun;
+
 	default: throw std::runtime_error("Goal_GetItem cannot determine item type");
 
 	}//end switch
