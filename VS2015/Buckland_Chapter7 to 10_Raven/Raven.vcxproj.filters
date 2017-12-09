@@ -307,6 +307,9 @@
     <ClCompile Include="goals\Goal_SafeTrip.cpp">
       <Filter>AI\goals\composite</Filter>
     </ClCompile>
+    <ClCompile Include="armory\Knife.cpp">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Raven_Bot.h">
@@ -681,6 +684,9 @@
     </ClInclude>
     <ClInclude Include="goals\Goal_SafeTrip.h">
       <Filter>AI\goals\composite</Filter>
+    </ClInclude>
+    <ClInclude Include="armory\Knife.h">
+      <Filter>Game\weapons &amp; projectiles\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

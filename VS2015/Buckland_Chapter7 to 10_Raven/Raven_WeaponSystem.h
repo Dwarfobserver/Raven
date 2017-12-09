@@ -37,6 +37,7 @@ private:
 
   //a pointer to the weapon the bot is currently holding
   Raven_Weapon*    m_pCurrentWeapon;
+  Raven_Weapon*	   m_knife;
 
   //this is the minimum amount of time a bot needs to see an opponent before
   //it can react to it. This variable is used to prevent a bot shooting at

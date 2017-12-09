@@ -73,8 +73,160 @@ Creating a shotgun
 Creating a shotgun
 Creating a rocket_launcher
 maps/Raven_DM1.map loaded okay
-Player is exorcised from bot 402
+Player Possesses bot 402
 BOT 401 IS STUCK!!
-BOT 403 IS STUCK!!
-Player is exorcised from bot 401
-Player is exorcised from bot 403
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Is Slash ?
+Throw Slash
+SLASH HIT !
+Is Slash ?
+Is Slash ?
+deleting raven bot (id = 401)
+deleting raven bot (id = 402)
+deleting raven bot (id = 403)

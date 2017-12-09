@@ -172,7 +172,7 @@ public:
 
   
   void  TagRaven_BotsWithinViewRange(BaseGameEntity* pRaven_Bot, double range)
-              {TagNeighbors(pRaven_Bot, m_Bots, range);}  
+              {TagNeighbors(pRaven_Bot, m_Bots, range);} 
 };
 
 

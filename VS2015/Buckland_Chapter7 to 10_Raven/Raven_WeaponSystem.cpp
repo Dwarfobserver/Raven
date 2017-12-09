@@ -3,6 +3,7 @@
 #include "armory/Weapon_RailGun.h"
 #include "armory/Weapon_ShotGun.h"
 #include "armory/Weapon_Blaster.h"
+#include "armory/Knife.h"
 #include "Raven_Bot.h"
 #include "misc/utils.h"
 #include "lua/Raven_Scriptor.h"
@@ -54,11 +55,13 @@ void Raven_WeaponSystem::Initialize()
 
   //set up the container
   m_pCurrentWeapon = new Blaster(m_pOwner);
+  m_knife = new Knife(m_pOwner);
 
   m_WeaponMap[type_blaster]         = m_pCurrentWeapon;
   m_WeaponMap[type_shotgun]         = 0;
   m_WeaponMap[type_rail_gun]        = 0;
   m_WeaponMap[type_rocket_launcher] = 0;
+  m_WeaponMap[type_knife]			= m_knife;
 }
 
 //-------------------------------- SelectWeapon -------------------------------
@@ -129,6 +132,9 @@ void  Raven_WeaponSystem::AddWeapon(unsigned int weapon_type)
   case type_rocket_launcher:
 
     w = new RocketLauncher(m_pOwner); break;
+
+  case type_knife:
+	  w = new Knife(m_pOwner); break;
 
   }//end switch
   
@@ -444,5 +450,11 @@ void Raven_WeaponSystem::RenderWeaponState()
 	renderPos += lineSpace;
 	line = "4 | " + GetNameOfType(type_rail_gun) + " : ";
 	line.append(std::to_string(GetAmmoRemainingForWeapon(type_rail_gun)));
+	gdi->TextAtPos(renderPos, line);
+
+	if (GetCurrentWeapon()->GetType() == type_knife) gdi->TextColor(0, 0, 255);
+	else gdi->TextColor(255, 0, 0);
+	renderPos += lineSpace;
+	line = "6 | " + GetNameOfType(type_knife) + " : " + "infinite";
 	gdi->TextAtPos(renderPos, line);
 }
