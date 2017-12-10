@@ -18,6 +18,7 @@ public:
 	Raven_Bot* getTarget() { return target; }
 	void setTarget(Raven_Bot* a) { target = a; }
 
+	int getSquadSize() { return squad.size(); }
 	void addBot(Raven_Bot* m) { squad.push_front(m); m->squad = this; }
 	void removeBot(Raven_Bot* m) { squad.remove(m); }
 

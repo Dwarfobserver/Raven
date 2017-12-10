@@ -32,6 +32,8 @@
 #define IDM_DELETE_RECORDS				40024
 #define IDM_CREATE_BRAIN				40025
 #define IDM_LOBOTOMIZE					40026
+#define IDM_GAME_ADDBOSS              40027
+#define IDM_GAME_REMOVEBOSS              40028
 
 
 // Next default values for new objects

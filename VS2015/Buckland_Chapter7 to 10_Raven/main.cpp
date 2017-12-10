@@ -231,6 +231,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           
           break;
 
+	  case IDM_GAME_ADDBOSS:
+
+		  g_pRaven->AddBoss(1);
+
+		  break;
+
 	  case IDM_GAME_ADDBLUEBOT:
 
 		  g_pRaven->AddBlueBots(1);
@@ -245,6 +251,12 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           g_pRaven->RemoveBot();
 
           break;
+
+	  case IDM_GAME_REMOVEBOSS:
+
+		  g_pRaven->RemoveBoss();
+
+		  break;
 
 	  case IDM_GAME_REMOVEBLUEBOT:
 		  g_pRaven->RemoveBlueBot();

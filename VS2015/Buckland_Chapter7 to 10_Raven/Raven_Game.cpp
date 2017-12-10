@@ -168,6 +168,7 @@ void Raven_Game::Update()
       //create a grave
       m_pGraveMarkers->AddGrave((*curBot)->Pos());
 
+	  if ((*curBot)->squad != nullptr && (*curBot)->squad->color == 2) RemoveBoss();
       //change its status to spawning
       (*curBot)->SetSpawning();
     }
@@ -186,7 +187,7 @@ void Raven_Game::Update()
   //one
   if (pRecorder_) pRecorder_->update();
   
-	if (m_bRemoveABot || m_bRemoveABlueBot || m_bRemoveARedBot)
+	if (m_bRemoveABot || m_bRemoveABlueBot || m_bRemoveARedBot || m_bRemoveABoss)
 	{ 
 		if (!m_Bots.empty())
 		{
@@ -233,6 +234,21 @@ void Raven_Game::Update()
 					}
 				}
 			}
+			else if (m_bRemoveABoss) {
+				pBot = *it;
+				if (pBot->squad != nullptr && pBot->squad->color == 2) {
+					continu = false;
+					pBot->squad->removeBot(pBot);
+				}
+				while (it != m_Bots.begin() && continu) {
+					it--;
+					pBot = *it;
+					if (pBot->squad != nullptr && pBot->squad->color == 2) {
+						continu = false;
+						pBot->squad->removeBot(pBot);
+					}
+				}
+			}
 			if (!continu) {
 				if (pBot == m_pSelectedBot)m_pSelectedBot = 0;
 				NotifyAllBotsOfRemoval(pBot);
@@ -245,6 +261,7 @@ void Raven_Game::Update()
 		m_bRemoveABot = false;
 		m_bRemoveABlueBot = false;
 		m_bRemoveARedBot = false;
+		m_bRemoveABoss = false;
 	}
 }
 
@@ -319,6 +336,44 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
   debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
 #endif
   }
+}
+
+//-------------------------- AddBoss --------------------------------------
+//
+//  Adds a bot and switches on the default steering behavior
+//-----------------------------------------------------------------------------
+void Raven_Game::AddBoss(unsigned int NumBotsToAdd)
+{
+	Raven_Squad* bossSquad = nullptr;
+	for (Raven_Squad* a : Raven_Squad::squadList)
+	{
+		if (a->color == 2) bossSquad = a;
+	}
+	if (bossSquad == nullptr || bossSquad->getSquadSize() == 0) {
+		while (NumBotsToAdd--)
+		{
+			//create a bot. (its position is irrelevant at this point because it will
+			//not be rendered until it is spawned)
+			Raven_Bot* rb = new Raven_Bot(this, Vector2D());
+			Raven_Squad::addToSquad(rb, 2);
+			rb->SetMaxHealth(500);
+			rb->SetScale(1.2);
+
+			//switch the default steering behaviors on
+			rb->GetSteering()->WallAvoidanceOn();
+			rb->GetSteering()->SeparationOn();
+
+			m_Bots.push_back(rb);
+
+			//register the bot with the entity manager
+			EntityMgr->RegisterEntity(rb);
+
+
+#ifdef LOG_CREATIONAL_STUFF
+			debug_con << "Adding bot with ID " << ttos(rb->ID()) << "";
+#endif
+		}
+	}
 }
 
 //-------------------------- AddBlueBots --------------------------------------
@@ -405,6 +460,14 @@ void Raven_Game::NotifyAllBotsOfRemoval(Raven_Bot* pRemovedBot)const
 void Raven_Game::RemoveBot()
 {
   m_bRemoveABot = true;
+}
+//-------------------------------RemoveBoss ------------------------------------
+//
+//  removes the last bot to be added from the game
+//-----------------------------------------------------------------------------
+void Raven_Game::RemoveBoss()
+{
+	m_bRemoveABoss = true;
 }
 //-------------------------------RemoveBlueBot ------------------------------------
 //

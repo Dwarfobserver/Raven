@@ -67,6 +67,7 @@ private:
   bool                             m_bRemoveABot;
   bool                             m_bRemoveABlueBot;
   bool                             m_bRemoveARedBot;
+  bool                             m_bRemoveABoss;
 
   //when a bot is killed a "grave" is displayed for a few seconds. This
   //class manages the graves
@@ -100,6 +101,7 @@ public:
   bool LoadMap(const std::string& FileName); 
 
   void AddBots(unsigned int NumBotsToAdd);
+	void AddBoss(unsigned NumBotsToAdd);
 	void AddBlueBots(unsigned NumBotsToAdd);
 	void AddRedBots(unsigned NumBotsToAdd);
 	void AddRocket(Raven_Bot* shooter, Vector2D target);
@@ -110,6 +112,7 @@ public:
 
   //removes the last bot to be added
   void RemoveBot();
+	void RemoveBoss();
 	void RemoveBlueBot();
 	void RemoveRedBot();
 

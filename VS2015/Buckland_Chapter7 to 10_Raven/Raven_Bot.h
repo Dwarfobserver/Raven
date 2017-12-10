@@ -154,6 +154,7 @@ public:
   int           MaxHealth()const{return m_iMaxHealth;}
   void          ReduceHealth(unsigned int val);
   void          IncreaseHealth(unsigned int val);
+  void          SetMaxHealth(unsigned int val);
   void			ReduceSpeed();
   void          RestoreHealthToMaximum();
 

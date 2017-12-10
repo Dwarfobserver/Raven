@@ -18,6 +18,7 @@ enum message_type
   Msg_TakeThatMF, 
   Msg_SlowDown,
   Msg_YouGotMeYouSOB,
+  Msg_YouGotMeYouNOOB,
   Msg_GoalQueueEmpty,
   Msg_OpenSesame,
   Msg_GunshotSound,
@@ -47,7 +48,11 @@ inline std::string MessageToString(int msg)
 
   case Msg_YouGotMeYouSOB:
 
-    return "Msg_YouGotMeYouSOB";
+	  return "Msg_YouGotMeYouSOB";
+
+  case Msg_YouGotMeYouNOOB:
+
+	  return "Msg_YouGotMeYouNOOB";
 
   case Msg_GoalQueueEmpty:
 

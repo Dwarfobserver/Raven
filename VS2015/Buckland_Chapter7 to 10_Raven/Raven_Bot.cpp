@@ -121,6 +121,11 @@ void Raven_Bot::Spawn(Vector2D pos)
 //
 void Raven_Bot::Update()
 {
+	if(squad!=nullptr && squad->color == 2)
+	{
+		SetMaxSpeed(1.2);
+		SetMaxForce(MaxForce() * 3);
+	}
   //process the currently active goal. Note this is required even if the bot
   //is under user control. This is because a goal is created whenever a user 
   //clicks on an area of the map that necessitates a path planning request.
@@ -249,11 +254,21 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 	  //if this bot is now dead let the shooter know
 	  if (isDead())
 	  {
-		  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
-			  ID(),
-			  msg.Sender,
-			  Msg_YouGotMeYouSOB,
-			  NO_ADDITIONAL_INFO);
+		  if (squad != nullptr && squad->color == 2)
+		  {
+			  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+				  ID(),
+				  msg.Sender,
+				  Msg_YouGotMeYouNOOB,
+				  NO_ADDITIONAL_INFO);
+		  }
+		  else {
+			  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+				  ID(),
+				  msg.Sender,
+				  Msg_YouGotMeYouSOB,
+				  NO_ADDITIONAL_INFO);
+		  }
 	  }
 
 	  return true;
@@ -269,12 +284,31 @@ bool Raven_Bot::HandleMessage(const Telegram& msg)
 	  //if this bot is now dead let the shooter know
 	  if (isDead())
 	  {
-		  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
-			  ID(),
-			  msg.Sender,
-			  Msg_YouGotMeYouSOB,
-			  NO_ADDITIONAL_INFO);
+		  if (squad != nullptr && squad->color == 2)
+		  {
+			  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+				  ID(),
+				  msg.Sender,
+				  Msg_YouGotMeYouNOOB,
+				  NO_ADDITIONAL_INFO);
+		  }
+		  else {
+			  Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+				  ID(),
+				  msg.Sender,
+				  Msg_YouGotMeYouSOB,
+				  NO_ADDITIONAL_INFO);
+		  }
 	  }
+
+	  return true;
+
+  case Msg_YouGotMeYouNOOB:
+
+	  for (int i = 0; i < 10; i++){ IncrementScore(); }	  
+
+	  //the bot this bot has just killed should be removed as the target
+	  m_pTargSys->ClearTarget();
 
 	  return true;
 
@@ -529,6 +563,8 @@ void Raven_Bot::Render()
 		  gdi->BluePen();
 	  else if (this->squad->color == 1)
 		  gdi->RedPen();
+	  else if (this->squad->color == 2)
+		  gdi->GreenPen();
   }
   
   m_vecBotVBTrans = WorldTransform(m_vecBotVB,
@@ -619,6 +655,11 @@ void Raven_Bot::IncreaseHealth(unsigned int val)
 {
   m_iHealth+=val; 
   Clamp(m_iHealth, 0, m_iMaxHealth);
+}
+
+void Raven_Bot::SetMaxHealth(unsigned int val)
+{
+	m_iMaxHealth = val;
 }
 
 void Raven_Bot::ReduceSpeed() 
