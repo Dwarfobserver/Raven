@@ -34,11 +34,15 @@ void Raven_TargetingSystem::Update()
 		if ((*curBot)->squad == nullptr || (*curBot)->squad->getLeader() != m_pOwner)
 		{
 			double dist;
+			// si team red -> cible = plus haut score
+			if (m_pOwner->squad != nullptr && m_pOwner->squad->color == 1)
+			{
+				dist = -(*curBot)->Score();
+			}
 			// si team blue -> cible = plus faible
-			if (m_pOwner->squad != nullptr && m_pOwner->squad->color == 0)
+			else if (m_pOwner->squad != nullptr && m_pOwner->squad->color == 0)
 			{
 				dist = (*curBot)->Health();
-
 			}
 			// sinon -> cible = plus proche
 			else
