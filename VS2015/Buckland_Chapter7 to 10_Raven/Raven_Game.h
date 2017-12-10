@@ -64,6 +64,8 @@ private:
 
   //if true a bot is removed from the game
   bool                             m_bRemoveABot;
+  bool                             m_bRemoveABlueBot;
+  bool                             m_bRemoveARedBot;
 
   //when a bot is killed a "grave" is displayed for a few seconds. This
   //class manages the graves
@@ -109,8 +111,10 @@ public:
 
   //removes the last bot to be added
   void RemoveBot();
+	void RemoveBlueBot();
+	void RemoveRedBot();
 
-  //returns true if a bot of size BoundingRadius cannot move from A to B
+	//returns true if a bot of size BoundingRadius cannot move from A to B
   //without bumping into world geometry
   bool isPathObstructed(Vector2D A, Vector2D B, double BoundingRadius = 0)const;
 

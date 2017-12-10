@@ -243,11 +243,11 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
           break;
 
 	  case IDM_GAME_REMOVEBLUEBOT:
-		  debug_con << "remove blue bot" << "";
+		  g_pRaven->RemoveBlueBot();
 		  break;
 
 	  case IDM_GAME_REMOVEREDBOT:
-		  debug_con << "remove blue bot" << "";
+		  g_pRaven->RemoveRedBot();
 		  break;
 
       case IDM_GAME_PAUSE:

@@ -3,7 +3,6 @@
 
 class Raven_Squad
 {
-	Raven_Bot* leader;
 	Raven_Bot* target;
 	std::list<Raven_Bot*> squad;
 
@@ -13,8 +12,8 @@ public:
 
 	int color;
 
-	Raven_Bot* getLeader() { return leader; }
-	void setLeader(Raven_Bot* a) { leader = a; }
+	Raven_Bot* getLeader() { return squad.front(); }
+	void setLeader(Raven_Bot* a) { squad.push_front(a); }
 
 	Raven_Bot* getTarget() { return target; }
 	void setTarget(Raven_Bot* a) { target = a; }

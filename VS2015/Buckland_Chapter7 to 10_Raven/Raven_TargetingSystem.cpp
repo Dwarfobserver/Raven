@@ -33,9 +33,18 @@ void Raven_TargetingSystem::Update()
     {
 		if ((*curBot)->squad == nullptr || (*curBot)->squad->getLeader() != m_pOwner)
 		{
+			double dist;
+			// si team blue -> cible = plus faible
+			if (m_pOwner->squad != nullptr && m_pOwner->squad->color == 0)
+			{
+				dist = (*curBot)->Health();
 
-			double dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
-
+			}
+			// sinon -> cible = plus proche
+			else
+			{
+				dist = Vec2DDistanceSq((*curBot)->Pos(), m_pOwner->Pos());
+			}
 			if (dist < ClosestDistSoFar)
 			{
 				ClosestDistSoFar = dist;
