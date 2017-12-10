@@ -25,22 +25,26 @@ Resources::Resources() {
 	}
 }
 
-DataFile Resources::open(std::string const& fileName) {
+Resources::~Resources() noexcept {
+	FileParser::save(folder + ""s + fileName, lines_);
+}
+
+std::unique_ptr<DataFile> Resources::open(std::string const& fileName) {
 	const auto it = find(files_.begin(), files_.end(), fileName);
 	if (it == files_.end())
 		throw std::runtime_error{ "Tried to open a file not referenced." };
 
-	return DataFile{ folder + fileName + DataFile::extension };
+	return std::make_unique<DataFile>(folder + fileName + DataFile::extension);
 }
 
-DataFile Resources::create(std::string const& fileName, Attributes attributes) {
+std::unique_ptr<DataFile> Resources::create(std::string const& fileName, Attributes attributes) {
 	const auto it = find(files_.begin(), files_.end(), fileName);
 	if (it != files_.end())
 		throw std::runtime_error{ "Tried to create a file with an already taken name." };
 	
 	files_.emplace_back(fileName);
 	lines_.emplace_back(fileName);
-	return DataFile{ folder + fileName + DataFile::extension, attributes };
+	return std::make_unique<DataFile>(folder + fileName + DataFile::extension, attributes);
 }
 
 void Resources::remove(std::string const& fileName) {

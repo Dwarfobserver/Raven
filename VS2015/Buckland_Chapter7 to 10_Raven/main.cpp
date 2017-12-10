@@ -260,6 +260,26 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
           break;
 
+	  case IDM_START_RECORD:
+		  g_pRaven->startRecorder();
+		  break;
+
+	  case IDM_STOP_RECORD:
+		  g_pRaven->stopRecorder();
+		  break;
+
+	  case IDM_DELETE_RECORDS:
+
+		  break;
+
+	  case IDM_CREATE_BRAIN:
+		  g_pRaven->makeClumsy();
+		  break;
+
+	  case IDM_LOBOTOMIZE:
+
+		  break;
+
 
 
       case IDM_NAVIGATION_SHOW_NAVGRAPH:

@@ -221,6 +221,7 @@
     <ClCompile Include="al_DataFile.cpp" />
     <ClCompile Include="al_NeuralNetwork.cpp" />
     <ClCompile Include="al_Record.cpp" />
+    <ClCompile Include="al_Recorder.cpp" />
     <ClCompile Include="al_Tests.cpp" />
     <ClCompile Include="al_Training.cpp" />
     <ClCompile Include="armory\Knife.cpp" />
@@ -552,6 +553,7 @@
     <ClInclude Include="al_FileParser.h" />
     <ClInclude Include="al_NeuralNetwork.h" />
     <ClInclude Include="al_Record.h" />
+    <ClInclude Include="al_Recorder.h" />
     <ClInclude Include="al_Tests.h" />
     <ClInclude Include="al_Training.h" />
     <ClInclude Include="armory\Knife.h" />

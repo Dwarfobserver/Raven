@@ -29,40 +29,11 @@
 #include "goals/Raven_Goal_Types.h"
 #include "debug/DebugConsole.h"
 
+#include "al_Recorder.h"
+
 
 //uncomment to write object creation/deletion to debug console
 //#define  LOG_CREATIONAL_STUFF
-
-namespace {
-	al::NeuralNetwork create_network()
-	{
-		al::NeuralNetwork::Config config;
-		config.inputsCount = 4;
-		config.layersCount = 1;
-		config.layerSize = 3;
-
-		return al::NeuralNetwork{ config };
-	}
-
-	void train_network(al::NeuralNetwork& nn)
-	{
-		auto file = al::resources().open("learnLoS");
-		auto& records = file.records();
-		auto package = al::PackedRecords{ records.front().attributes(), {&records} };
-		al::TrainConfig config;
-		config.errorAccepted = 0.001;
-		config.learningStep = 1;
-		config.passesBetweenChecks = 100;
-		config.trainingSampleRatio = 0.67;
-		al::train(nn, package, config);
-
-		al::Record r;
-		r[al::Attributes::TargetDistance] = 0.5;
-		r[al::Attributes::AmmoCount] = 0.5;
-		r[al::Attributes::OwnerLife] = 0.5;
-		r[al::Attributes::LineOfSight] = 1;
-	}
-}
 
 //----------------------------- ctor ------------------------------------------
 //-----------------------------------------------------------------------------
@@ -73,10 +44,8 @@ Raven_Game::Raven_Game():m_pSelectedBot(NULL),
 						 m_bRemoveARedBot(false),
                          m_pMap(NULL),
                          m_pPathManager(NULL),
-                         m_pGraveMarkers(NULL),
-						 neuralNetwork(create_network())
+                         m_pGraveMarkers(NULL)
 {
-	train_network(neuralNetwork);
   //load in the default map
   LoadMap(script->GetString("StartMap"));
 }
@@ -215,6 +184,8 @@ void Raven_Game::Update()
 
   //if the user has requested that the number of bots be decreased, remove
   //one
+  if (pRecorder_) pRecorder_->update();
+  
 	if (m_bRemoveABot || m_bRemoveABlueBot || m_bRemoveARedBot)
 	{ 
 		if (!m_Bots.empty())
@@ -334,8 +305,6 @@ void Raven_Game::AddBots(unsigned int NumBotsToAdd)
     //not be rendered until it is spawned)
     Raven_Bot* rb = new Raven_Bot(this, Vector2D());
 
-	rb->SetClumsism(NumBotsToAdd == 0);
-
     //switch the default steering behaviors on
     rb->GetSteering()->WallAvoidanceOn();
     rb->GetSteering()->SeparationOn();
@@ -365,8 +334,6 @@ void Raven_Game::AddBlueBots(unsigned int NumBotsToAdd)
 		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
 		Raven_Squad::addToSquad(rb, 0);
 
-		rb->SetClumsism(0);
-
 		//switch the default steering behaviors on
 		rb->GetSteering()->WallAvoidanceOn();
 		rb->GetSteering()->SeparationOn();
@@ -395,8 +362,6 @@ void Raven_Game::AddRedBots(unsigned int NumBotsToAdd)
 		//not be rendered until it is spawned)
 		Raven_Bot* rb = new Raven_Bot(this, Vector2D());
 		Raven_Squad::addToSquad(rb, 1);
-
-		rb->SetClumsism(0);
 
 		//switch the default steering behaviors on
 		rb->GetSteering()->WallAvoidanceOn();
@@ -865,10 +830,6 @@ Vector2D Raven_Game::GetUserDirection() const
 }
 
 
-
-
-
-    
 //--------------------------- Render ------------------------------------------
 //-----------------------------------------------------------------------------
 void Raven_Game::Render()
@@ -980,4 +941,82 @@ void Raven_Game::Render()
       m_pSelectedBot->GetWeaponSys()->RenderDesirabilities();
     }
   }
+}
+
+
+// Recorder
+
+
+void Raven_Game::startRecorder() {
+	if (pRecorder_) {
+		debug_con << "A recorder is already running" << "";
+		return;
+	}
+	if (!m_pSelectedBot) {
+		debug_con << "You must select a bot first" << "";
+		return;
+	}
+
+	pRecorder_ = std::make_unique<al::Recorder>(*m_pSelectedBot);
+	debug_con << "Recorder created" << "";
+}
+
+void Raven_Game::stopRecorder() {
+	if (!pRecorder_) {
+		debug_con << "No recorder is running" << "";
+		return;
+	}
+
+	pRecorder_.reset();
+	debug_con << "Recorder destroyed" << "";
+}
+
+
+void Raven_Game::makeClumsy() {
+	if (pRecorder_) {
+		debug_con << "You must stop the recorder first" << "";
+		return;
+	}
+	if (!m_pSelectedBot) {
+		debug_con << "You must select a bot first" << "";
+		return;
+	}
+
+	debug_con << "Begin training ..." << "";
+
+	const auto pFile = al::resources().open(al::Recorder::FILE_NAME);
+	auto const& records = pFile->records();
+	const auto package = al::PackedRecords{ records.front().attributes(),{ &records } };
+
+	al::TrainConfig trainConfig;
+	trainConfig.errorAccepted = 0.001;
+	trainConfig.learningStep = 1;
+	trainConfig.passesBetweenChecks = 100;
+	trainConfig.trainingSampleRatio = 0.67;
+
+	al::NeuralNetwork::Config nnConfig;
+	nnConfig.inputsCount = 4;
+	nnConfig.layersCount = 1;
+	nnConfig.layerSize = 3;
+
+	auto pBrain = std::make_unique<al::NeuralNetwork>(nnConfig);
+	train(*pBrain, package, trainConfig);
+	m_pSelectedBot->setBrain(move(pBrain));
+
+	debug_con << "Implemented brain on selected bot" << "";
+}
+
+void Raven_Game::lobotomize() {
+	if (!m_pSelectedBot) {
+		debug_con << "You must select a bot first" << "";
+		return;
+	}
+	if (!m_pSelectedBot->getBrain()) {
+		debug_con << "You must select a bot first" << "";
+		return;
+	}
+
+	m_pSelectedBot->lobotomize();
+
+	debug_con << "Lobomotized the selected bot" << "";
 }

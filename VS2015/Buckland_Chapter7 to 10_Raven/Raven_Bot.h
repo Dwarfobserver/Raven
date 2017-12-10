@@ -16,6 +16,8 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Raven_TargetingSystem.h"
+#include <memory>
+#include "al_NeuralNetwork.h"
 
 
 class Raven_PathPlanner;
@@ -42,7 +44,7 @@ private:
 private:
 
   //determinate if the bot must get his fire decision from a nn or not
-  bool								 m_Clumsy;
+  std::unique_ptr<al::NeuralNetwork> pBrain_;
 
   //alive, dead or spawning?
   Status                             m_Status;
@@ -165,12 +167,13 @@ public:
   bool          isDead()const{return m_Status == dead;}
   bool          isAlive()const{return m_Status == alive;}
   bool          isSpawning()const{return m_Status == spawning;}
-  bool			isClumsy()const{return m_Clumsy;}
+  al::NeuralNetwork* getBrain()const{return pBrain_.get();}
   
   void          SetSpawning(){m_Status = spawning;}
   void          SetDead(){m_Status = dead;}
   void          SetAlive(){m_Status = alive;}
-  void			SetClumsism(bool clumsism){m_Clumsy = clumsism;}
+  void			setBrain(std::unique_ptr<al::NeuralNetwork>&& pBrain){ pBrain_ = move(pBrain);}
+  void			lobotomize() { pBrain_.reset(); }
 
   //returns a value indicating the time in seconds it will take the bot
   //to reach the given position at its current speed.

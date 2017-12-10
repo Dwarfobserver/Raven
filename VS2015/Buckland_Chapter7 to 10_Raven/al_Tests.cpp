@@ -38,24 +38,24 @@ bool Tests::run() {
 			auto r2 = Record{ attr,{ 3.f, 4.f } };
 			{
 				auto dataFile = resources().create(fileName, attr);
-				REQUIRE(dataFile.attributes() == attr, "Attributes failed");
+				REQUIRE(dataFile->attributes() == attr, "Attributes failed");
 
-				dataFile.addRecord(r1);
-				dataFile.addRecord(r2);
-				REQUIRE(dataFile.records().size() == 2, "Data count failed");
+				dataFile->addRecord(r1);
+				dataFile->addRecord(r2);
+				REQUIRE(dataFile->records().size() == 2, "Data count failed");
 
-				dataFile.saveAtDestruction(true);
+				dataFile->saveAtDestruction(true);
 				// Auto-save
 			}
 			{
 				auto dataFile2 = resources().open(fileName);
-				REQUIRE(dataFile2.attributes() == attr, "Attributes serialization failed");
-				REQUIRE(dataFile2.records().size() == 2, "Data count serialization failed");
+				REQUIRE(dataFile2->attributes() == attr, "Attributes serialization failed");
+				REQUIRE(dataFile2->records().size() == 2, "Data count serialization failed");
 
-				REQUIRE(dataFile2.records()[0] == r1, "Data serialization failed");
-				REQUIRE(dataFile2.records()[1] == r2, "Data serialization failed");
+				REQUIRE(dataFile2->records()[0] == r1, "Data serialization failed");
+				REQUIRE(dataFile2->records()[1] == r2, "Data serialization failed");
 
-				dataFile2.saveAtDestruction(false);
+				dataFile2->saveAtDestruction(false);
 			}
 			resources().remove(fileName);
 
@@ -66,7 +66,7 @@ bool Tests::run() {
 			// Attributes : X1, X2 and the output
 			auto attr = Attributes::LastFlag | Attributes::FirstFlag | (Attributes::FirstFlag << 1);
 			auto dataFile = resources().open(fileName);
-			auto records = PackedRecords{ attr, {&dataFile.records()} };
+			auto records = PackedRecords{ attr, {&dataFile->records()} };
 
 			auto nnConfig = NeuralNetwork::Config {};
 			nnConfig.inputsCount = 2;

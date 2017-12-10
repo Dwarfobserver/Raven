@@ -2,9 +2,11 @@
 #include "al_FileParser.h"
 
 #include <fstream>
+#include "al_Resources.h"
 
 
 using namespace al;
+using namespace std::literals;
 
 std::vector<FileParser::Line> FileParser::open(std::string const& filePath) {
 	std::ifstream file{ filePath };
@@ -24,6 +26,7 @@ void FileParser::save(std::string const& filePath, std::vector<Line> const& line
 	for (auto const& line : lines) {
 		file << line.content << '\n';
 	}
+	//auto lines = open(Resources::folder + ""s + Resources::fileName);
 }
 
 FileParser::Line::Line(std::string const& content)

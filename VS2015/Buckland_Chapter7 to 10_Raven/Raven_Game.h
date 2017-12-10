@@ -17,7 +17,7 @@
 #include <vector>
 #include <string>
 #include <list>
-
+#include <memory>
 
 #include "AttackLearning.h"
 
@@ -34,12 +34,13 @@ class BaseGameEntity;
 class Raven_Projectile;
 class Raven_Map;
 class GraveMarkers;
-
+namespace al { class Recorder; }
 
 
 class Raven_Game
 {
 private:
+	std::unique_ptr<al::Recorder> pRecorder_;
 
   //the current game map
   Raven_Map*                       m_pMap;
@@ -88,8 +89,6 @@ private:
 
   
 public:
-	al::NeuralNetwork neuralNetwork;
-  
   Raven_Game();
   ~Raven_Game();
 
@@ -168,7 +167,12 @@ public:
   //added methods to change the control of possessed bot
   Vector2D	  GetUserDirection() const;
 
+  void startRecorder();
+  void stopRecorder();
+  void makeClumsy();
+  void lobotomize();
   
+  al::Recorder*							   GetRecorder()const { return pRecorder_.get(); }
   const Raven_Map* const                   GetMap()const{return m_pMap;}
   Raven_Map* const                         GetMap(){return m_pMap;}
   const std::list<Raven_Bot*>&             GetAllBots()const{return m_Bots;}

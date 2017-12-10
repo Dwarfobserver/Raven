@@ -27,6 +27,12 @@
 #define IDM_GAME_ADDREDBOT				40019
 #define IDM_GAME_REMOVEBLUEBOT			40020
 #define IDM_GAME_REMOVEREDBOT			40021
+#define IDM_START_RECORD				40022
+#define IDM_STOP_RECORD					40023
+#define IDM_DELETE_RECORDS				40024
+#define IDM_CREATE_BRAIN				40025
+#define IDM_LOBOTOMIZE					40026
+
 
 // Next default values for new objects
 // 

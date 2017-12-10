@@ -27,8 +27,8 @@ double AttackTargetGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 	  const auto healthRatio = Raven_Feature::Health(pBot);
 	  const auto weaponsRatio = Raven_Feature::TotalWeaponStrength(pBot);
 
-
-	  if (pBot->isClumsy())
+	  const auto pBrain = pBot->getBrain();
+	  if (pBrain)
 	  {
 		  auto pWorld = pBot->GetWorld();
 		  auto pTarget = pBot->GetTargetBot();
@@ -46,7 +46,7 @@ double AttackTargetGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 		  r[al::Attributes::OwnerLife] = healthRatio;
 		  r[al::Attributes::AmmoCount] = weaponsRatio;
 
-		  Desirability = pWorld->neuralNetwork.evaluate(r);
+		  Desirability = pBrain->evaluate(r);
 	  }
 	  else {
 		  const double Tweaker = 1.0;
@@ -57,7 +57,6 @@ double AttackTargetGoal_Evaluator::CalculateDesirability(Raven_Bot* pBot)
 
 	  //bias the value according to the personality of the bot
 	  Desirability *= m_dCharacterBias;
-     
   }
     
   return Desirability;

@@ -4,6 +4,7 @@
 #include "al_FileParser.h"
 #include "al_DataFile.h"
 #include <vector>
+#include <memory>
 
 
 namespace al {
@@ -16,9 +17,10 @@ namespace al {
 		static char const * const filesTitle;
 
 		Resources();
+		~Resources() noexcept;
 
-		DataFile open(std::string const& fileName);
-		DataFile create(std::string const& fileName, Attributes attributes);
+		std::unique_ptr<DataFile> open(std::string const& fileName);
+		std::unique_ptr<DataFile> create(std::string const& fileName, Attributes attributes);
 		void remove(std::string const& fileName);
 
 		std::vector<std::string> const& files() const { return files_; }

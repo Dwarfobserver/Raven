@@ -59,11 +59,6 @@ protected:
   //the max speed of the projectile this weapon fires
   double         m_dMaxProjectileSpeed;
 
-  //The number of times a weapon can be discharges depends on its rate of fire.
-  //This method returns true if the weapon is able to be discharged at the 
-  //current time. (called from ShootAt() )
-  bool          isReadyForNextShot();
-
   //this is called when a shot is fired to update m_dTimeNextAvailable
   void          UpdateTimeWeaponIsNextAvailable();
 
@@ -78,6 +73,11 @@ protected:
 
 
 public:
+	//The number of times a weapon can be discharges depends on its rate of fire.
+	//This method returns true if the weapon is able to be discharged at the 
+	//current time. (called from ShootAt() )
+	bool          isReadyForNextShot();
+
 
   Raven_Weapon(unsigned int TypeOfGun,
                unsigned int DefaultNumRounds,

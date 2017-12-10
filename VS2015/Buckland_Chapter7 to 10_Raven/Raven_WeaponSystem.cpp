@@ -12,6 +12,8 @@
 #include "Raven_UserOptions.h"
 #include "2D/transformations.h"
 #include "debug/DebugConsole.h"
+#include "al_Recorder.h"
+
 
 //------------------------- ctor ----------------------------------------------
 //-----------------------------------------------------------------------------
@@ -233,7 +235,7 @@ void Raven_WeaponSystem::TakeAimAndShoot()
       {
         AddNoiseToAim(AimingPos);
         
-        GetCurrentWeapon()->ShootAt(AimingPos);
+        ShootAt(AimingPos);
       }
     }
 
@@ -380,6 +382,14 @@ int Raven_WeaponSystem::GetAmmoRemainingForWeapon(unsigned int weapon_type)
 //-----------------------------------------------------------------------------
 void Raven_WeaponSystem::ShootAt(Vector2D pos)const
 {
+	const auto pWorld = m_pOwner->GetWorld();
+	const auto pRecorder = pWorld->GetRecorder();
+	if (pRecorder &&
+		&pRecorder->bot() == m_pOwner &&
+		GetCurrentWeapon()->isReadyForNextShot()) {
+		debug_con << "recorded" << "";
+		pRecorder->record(true);
+	}
   GetCurrentWeapon()->ShootAt(pos);
 }
 

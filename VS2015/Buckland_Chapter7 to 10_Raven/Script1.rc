@@ -63,6 +63,14 @@ BEGIN
         MENUITEM "Show Goal Queue",             IDM_BOTS_SHOW_GOAL_Q
         MENUITEM "Show Path",                   IDM_NAVIGATION_SHOW_PATH
     END
+	POPUP "Brain Factory"
+	BEGIN
+		MENUITEM "Start record",				IDM_START_RECORD
+		MENUITEM "Stop record",					IDM_STOP_RECORD
+		MENUITEM "Delete records",				IDM_DELETE_RECORDS
+		MENUITEM "Create brain",				IDM_CREATE_BRAIN
+		MENUITEM "Lobotomize",					IDM_LOBOTOMIZE
+	END
 END
 
 

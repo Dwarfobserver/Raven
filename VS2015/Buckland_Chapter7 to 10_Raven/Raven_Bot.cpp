@@ -133,16 +133,16 @@ void Raven_Bot::Update()
 	}
   UpdateMovement();
 
+  //examine all the opponents in the bots sensory memory and select one
+  //to be the current target
+  if (m_pTargetSelectionRegulator->isReady() && (squad == nullptr || this == squad->getLeader()))
+  {
+	  m_pTargSys->Update();
+  }
+
   //if the bot is under AI control but not scripted
   if (!isPossessed())
   {           
-    //examine all the opponents in the bots sensory memory and select one
-    //to be the current target
-    if (m_pTargetSelectionRegulator->isReady() && ( squad == nullptr || this == squad->getLeader() )) 
-    {      
-      m_pTargSys->Update();
-    }
-
     //appraise and arbitrate between all possible high level goals
     if (m_pGoalArbitrationRegulator->isReady())
     {
@@ -522,7 +522,7 @@ void Raven_Bot::Render()
   if (isDead() || isSpawning()) return;
   
   gdi->GreyPen();
-  if (this->isClumsy())
+  if (this->getBrain())
 	  gdi->OrangePen();
   if (squad != nullptr) {
 	  if (this->squad->color == 0)
