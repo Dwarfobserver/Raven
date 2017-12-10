@@ -262,13 +262,14 @@ void Raven_Game::Update()
 					}
 				}
 			}
-
-			if (pBot == m_pSelectedBot)m_pSelectedBot=0;
-			NotifyAllBotsOfRemoval(pBot);
-			*it = m_Bots.back();
-			delete m_Bots.back();
-			m_Bots.remove(pBot);
-			pBot = 0;
+			if (!continu) {
+				if (pBot == m_pSelectedBot)m_pSelectedBot = 0;
+				NotifyAllBotsOfRemoval(pBot);
+				//	*it = m_Bots.back();
+				//	delete m_Bots.back();        FIX
+				m_Bots.remove(pBot);
+				pBot = 0;
+			}
 		}
 		m_bRemoveABot = false;
 		m_bRemoveABlueBot = false;
