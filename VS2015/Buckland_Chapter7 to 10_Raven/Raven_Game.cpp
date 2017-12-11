@@ -883,8 +883,8 @@ Raven_Game::GetPosOfClosestSwitch(Vector2D botPos, unsigned int doorID)const
 Vector2D Raven_Game::GetUserDirection() const
 {
 	Vector2D direction;
-	if (IS_KEY_PRESSED('Z')) direction.y = -1;
-	if (IS_KEY_PRESSED('Q')) direction.x = -1;
+	if (IS_KEY_PRESSED('W')) direction.y = -1;
+	if (IS_KEY_PRESSED('A')) direction.x = -1;
 	if (IS_KEY_PRESSED('S')) direction.y = 1;
 	if (IS_KEY_PRESSED('D')) direction.x = 1;
 	direction.Normalize();
