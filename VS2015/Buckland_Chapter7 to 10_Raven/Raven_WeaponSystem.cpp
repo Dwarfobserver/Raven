@@ -212,22 +212,6 @@ void Raven_WeaponSystem::TakeAimAndShoot()
 		  {
 			  auto r = m_pOwner->createRecord();
 			  double threshold = m_pOwner->getBrain()->evaluate(r);
-
-			  using namespace std::literals;
-			  static auto lastTime = std::chrono::high_resolution_clock::now();
-			  auto currentTime = std::chrono::high_resolution_clock::now();
-			  if (currentTime - lastTime > 2s)
-			  {
-				  lastTime = currentTime;
-				  debug_con << "record : ";
-				  al::forEachIndice(r.attributes(), [&](int i)
-				  {
-					  debug_con << r[i] << ", ";
-				  });
-				  debug_con << "";
-				  debug_con << "DESIRABILITY BRAIN = " << threshold << "";
-			  }
-
 			  if (threshold > 0.5) ShootAt(pos);
 		  }
 		  else ShootAt(pos);
@@ -245,11 +229,10 @@ void Raven_WeaponSystem::TakeAimAndShoot()
       //if the weapon is aimed correctly, there is line of sight between the
       //bot and the aiming position and it has been in view for a period longer
       //than the bot's reaction time, shoot the weapon
-      if (m_pOwner->getBrain() ||
-		  m_pOwner->RotateFacingTowardPosition(AimingPos) &&
+      if ((m_pOwner->RotateFacingTowardPosition(AimingPos) &&
            (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
             m_dReactionTime) &&
-           m_pOwner->hasLOSto(AimingPos) )
+           m_pOwner->hasLOSto(AimingPos)) || m_pOwner->getBrain())
       {
 		  shootAction(AimingPos);
       }
@@ -260,10 +243,9 @@ void Raven_WeaponSystem::TakeAimAndShoot()
     {
       //if the weapon is aimed correctly and it has been in view for a period
       //longer than the bot's reaction time, shoot the weapon
-      if (m_pOwner->getBrain() ||
-		  m_pOwner->RotateFacingTowardPosition(AimingPos) &&
+      if ((m_pOwner->RotateFacingTowardPosition(AimingPos) &&
            (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-            m_dReactionTime) )
+            m_dReactionTime)) || m_pOwner->getBrain())
       {
 		  shootAction(AimingPos);
       }

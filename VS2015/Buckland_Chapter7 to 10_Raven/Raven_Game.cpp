@@ -1069,7 +1069,7 @@ void Raven_Game::makeClumsy() {
 	nnConfig.layerSize = 3;
 
 	auto pBrain = std::make_unique<al::NeuralNetwork>(nnConfig);
-	debug_con << "error rate = " << train(*pBrain, package, trainConfig) * 1'000 << "";
+	debug_con << "error rate = " << train(*pBrain, package, trainConfig) << "";
 	m_pSelectedBot->setBrain(move(pBrain));
 
 	debug_con << "Implemented brain on selected bot" << "";
