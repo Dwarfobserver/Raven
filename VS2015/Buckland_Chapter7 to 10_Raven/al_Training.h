@@ -21,12 +21,15 @@ namespace al {
 
 		double const* begin() const { return pData_.get(); }
 		double const* end() const { return pData_.get() + dataCount_ * dataSize_; }
+
+		std::pair<double, double> coef(int i) const { return coefs_[i]; }
 	private:
 		void normalizeData();
 
 		Attributes attributes_;
 		int dataCount_;
 		int dataSize_;
+		std::vector<std::pair<double, double>> coefs_;
 		std::unique_ptr<double[]> pData_;
 	};
 

@@ -13,6 +13,9 @@
 #include "2D/transformations.h"
 #include "debug/DebugConsole.h"
 #include "al_Recorder.h"
+#include "goals/Raven_Feature.h"
+#include "2d/WallIntersectionTests.h"
+#include "Raven_Map.h"
 
 
 //------------------------- ctor ----------------------------------------------
@@ -202,6 +205,19 @@ void Raven_WeaponSystem::TakeAimAndShoot()
     Vector2D AimingPos = m_pOwner->GetTargetBot()->Pos();
 
 
+	  auto shootAction = [&] (Vector2D pos)
+	  {
+		  AddNoiseToAim(AimingPos);
+		  if (m_pOwner->getBrain())
+		  {
+			  auto r = m_pOwner->createRecord();
+			  double threshold = m_pOwner->getBrain()->evaluate(r);
+			  if (threshold > 0.5) ShootAt(pos);
+		  }
+		  else ShootAt(pos);
+		  
+	  };
+
     //if the current weapon is not an instant hit type gun the target position
     //must be adjusted to take into account the predicted movement of the 
     //target
@@ -213,14 +229,12 @@ void Raven_WeaponSystem::TakeAimAndShoot()
       //if the weapon is aimed correctly, there is line of sight between the
       //bot and the aiming position and it has been in view for a period longer
       //than the bot's reaction time, shoot the weapon
-      if ( m_pOwner->RotateFacingTowardPosition(AimingPos) &&
+      if ((m_pOwner->RotateFacingTowardPosition(AimingPos) &&
            (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
             m_dReactionTime) &&
-           m_pOwner->hasLOSto(AimingPos) )
+           m_pOwner->hasLOSto(AimingPos)) || m_pOwner->getBrain())
       {
-        AddNoiseToAim(AimingPos);
-
-        GetCurrentWeapon()->ShootAt(AimingPos);
+		  shootAction(AimingPos);
       }
     }
 
@@ -229,13 +243,11 @@ void Raven_WeaponSystem::TakeAimAndShoot()
     {
       //if the weapon is aimed correctly and it has been in view for a period
       //longer than the bot's reaction time, shoot the weapon
-      if ( m_pOwner->RotateFacingTowardPosition(AimingPos) &&
+      if ((m_pOwner->RotateFacingTowardPosition(AimingPos) &&
            (m_pOwner->GetTargetSys()->GetTimeTargetHasBeenVisible() >
-            m_dReactionTime) )
+            m_dReactionTime)) || m_pOwner->getBrain())
       {
-        AddNoiseToAim(AimingPos);
-        
-        ShootAt(AimingPos);
+		  shootAction(AimingPos);
       }
     }
 
@@ -382,12 +394,9 @@ int Raven_WeaponSystem::GetAmmoRemainingForWeapon(unsigned int weapon_type)
 //-----------------------------------------------------------------------------
 void Raven_WeaponSystem::ShootAt(Vector2D pos)const
 {
-	const auto pWorld = m_pOwner->GetWorld();
-	const auto pRecorder = pWorld->GetRecorder();
-	if (pRecorder &&
-		&pRecorder->bot() == m_pOwner &&
-		GetCurrentWeapon()->isReadyForNextShot()) {
-		debug_con << "recorded" << "";
+	auto pRecorder = m_pOwner->GetWorld()->GetRecorder();
+	if (pRecorder && &pRecorder->bot() == m_pOwner)
+	{
 		pRecorder->record(true);
 	}
   GetCurrentWeapon()->ShootAt(pos);

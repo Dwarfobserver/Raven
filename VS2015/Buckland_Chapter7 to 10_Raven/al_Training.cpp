@@ -57,20 +57,18 @@ void PackedRecords::normalizeData() {
 			if (val > maxs[shift]) maxs[shift] = val;
 		}
 	}
-
-	for (int shift = 0; shift < dataSize_; ++shift) {
-		const double scale = maxs[shift] - mins[shift];
-		const double offset = -mins[shift];
-		for (int i = 0; i < dataCount_; ++i) {
-			double& val = pData_[i * dataSize_ + shift];
-			val = (val + offset) / scale;
-		}
+	for (auto i = 0u; i < mins.size(); ++i) {
+		coefs_.push_back({ mins[i], maxs[i] });
 	}
 }
 
 double al::train(NeuralNetwork& nn, PackedRecords const& records, TrainConfig const& config) {
 	if (nn.config().inputsCount != records.dataSize() - 1)
 		throw std::runtime_error{ "The neural network has a wrong number of inputs for this trainer." };
+
+	for (int i = 0; i < records.dataSize() - 1; ++i) {
+		nn.coef(i) = records.coef(i);
+	}
 
 	int trainSampleCount = static_cast<int>(config.trainingSampleRatio * records.dataCount());
 
@@ -104,5 +102,5 @@ double al::train(NeuralNetwork& nn, PackedRecords const& records, TrainConfig co
 		oldError = newError;
 		newError = testing();
 	}
-	return newError / records.dataCount();
+	return newError / static_cast<double>(records.dataCount());
 }

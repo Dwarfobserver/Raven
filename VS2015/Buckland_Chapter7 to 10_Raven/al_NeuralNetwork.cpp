@@ -8,6 +8,7 @@ using namespace al;
 
 NeuralNetwork::NeuralNetwork(Config const& config) :
 	config_{config},
+	coefs_(config_.inputsCount, { 1.0, 1.0 }),
 	pGenann_{ genann_init(
 		config.inputsCount,
 		config.layersCount,
@@ -16,11 +17,21 @@ NeuralNetwork::NeuralNetwork(Config const& config) :
 {}
 
 void NeuralNetwork::train(double const* inputs, double output, double learningStep) {
-	genann_train(pGenann_.get(), inputs, &output, learningStep);
+	double inputsCopy[7];
+	auto i = 0u;
+	for (; i < coefs_.size(); ++i) {
+		inputsCopy[i] = (inputs[i] - coefs_[i].first) / (coefs_[i].second - coefs_[i].first);
+	}
+	inputsCopy[i] = inputs[i];
+	genann_train(pGenann_.get(), inputsCopy, &output, learningStep);
 }
 
 double NeuralNetwork::evaluate(double const* inputs) const {
-	const auto pResults = genann_run(pGenann_.get(), inputs);
+	double inputsCopy[7];
+	for (auto i = 0u; i < coefs_.size(); ++i) {
+		inputsCopy[i] = (inputs[i] - coefs_[i].first) / (coefs_[i].second - coefs_[i].first);
+	}
+	const auto pResults = genann_run(pGenann_.get(), inputsCopy);
 	return *pResults;
 }
 

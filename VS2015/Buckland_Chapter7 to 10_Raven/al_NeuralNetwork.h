@@ -2,6 +2,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 
 struct genann;
@@ -22,9 +23,11 @@ namespace al {
 		double evaluate(double const* inputs) const;
 		double evaluate(Record const& record) const;
 
+		std::pair<double, double>& coef(int i) { return coefs_[i]; }
 		Config const& config() const { return config_; }
 	private:
 		Config config_;
+		std::vector<std::pair<double, double>> coefs_;
 		std::unique_ptr<genann, void (*) (genann*)> pGenann_;
 	};
 

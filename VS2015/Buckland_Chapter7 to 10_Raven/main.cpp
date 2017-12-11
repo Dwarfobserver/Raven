@@ -282,6 +282,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 
 	  case IDM_DELETE_RECORDS:
 
+		  g_pRaven->deleteRecords();
 		  break;
 
 	  case IDM_CREATE_BRAIN:
@@ -289,7 +290,7 @@ LRESULT CALLBACK WindowProc (HWND   hwnd,
 		  break;
 
 	  case IDM_LOBOTOMIZE:
-
+		  g_pRaven->lobotomize();
 		  break;
 
 
