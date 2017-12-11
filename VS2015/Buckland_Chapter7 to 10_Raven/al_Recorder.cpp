@@ -16,6 +16,11 @@ using namespace std::chrono;
 
 char const* Recorder::FILE_NAME {"in-game_records"};
 
+void Recorder::remove()
+{
+	resources().remove(FILE_NAME);
+}
+
 Recorder::Recorder(Raven_Bot& bot) :
 		bot_{bot}
 {
@@ -37,7 +42,7 @@ Recorder::Recorder(Raven_Bot& bot) :
 
 void Recorder::update() {
 	const auto currentTime = high_resolution_clock::now();
-	if (currentTime - lastUpdate_ < 1s) {
+	if (currentTime - lastUpdate_ < 0.5s) {
 		return;
 	}
 	if (!bot_.GetWeaponSys()->GetCurrentWeapon()->isReadyForNextShot()) {
@@ -51,27 +56,8 @@ void Recorder::update() {
 void Recorder::record(bool hasFired) {
 	if (!bot_.GetTargetBot()) return;
 
-	const auto healthRatio = Raven_Feature::Health(&bot_);
-	const auto weaponsRatio = Raven_Feature::TotalWeaponStrength(&bot_);
-
-	auto pWorld = bot_.GetWorld();
-	const auto pTarget = bot_.GetTargetBot();
-
-	const double distance = Vec2DDistanceSq(bot_.Pos(), pTarget->Pos());
-
-	const bool sight = doWallsObstructLineSegment(
-		bot_.Pos(),
-		pTarget->Pos(),
-		pWorld->GetMap()->GetWalls());
-	
-	Record r;
-	r[Attributes::TargetDistance] = distance;
-	r[Attributes::LineOfSight] = !sight ? 1.0 : 0.0;
-	r[Attributes::OwnerLife] = healthRatio;
-	r[Attributes::AmmoCount] = weaponsRatio;
+	auto r = bot_.createRecord();
 	r[Attributes::Decision] = hasFired;
 
 	pFile_->addRecord(r);
-
-
 }

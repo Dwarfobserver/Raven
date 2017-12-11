@@ -14,6 +14,8 @@ namespace al {
 	class Recorder {
 	public:
 		static char const* FILE_NAME;
+		
+		static void remove();
 
 		explicit Recorder(Raven_Bot& bot);
 

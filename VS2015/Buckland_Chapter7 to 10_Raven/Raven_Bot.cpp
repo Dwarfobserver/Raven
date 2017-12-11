@@ -22,6 +22,10 @@
 
 
 #include "Debug/DebugConsole.h"
+#include "goals/AttackTargetGoal_Evaluator.h"
+#include "goals/Raven_Feature.h"
+#include "2d/WallIntersectionTests.h"
+#include <chrono>
 
 //-------------------------- ctor ---------------------------------------------
 Raven_Bot::Raven_Bot(Raven_Game* world,Vector2D pos):
@@ -166,10 +170,8 @@ void Raven_Bot::Update()
     {       
       m_pWeaponSys->SelectWeapon();       
     }
-
-    //this method aims the bot's current weapon at the current target
-    //and takes a shot if a shot is possible
-    m_pWeaponSys->TakeAimAndShoot();
+	
+	m_pWeaponSys->TakeAimAndShoot();
   }
   else
   {
@@ -179,8 +181,8 @@ void Raven_Bot::Update()
 		  GetBrain()->RemoveAllSubgoals();
 		  GetBrain()->AddGoal_MoveToPosition(Pos() + 5 * direction);
 	  }
-	  
   }
+
 }
 
 
@@ -539,6 +541,31 @@ bool Raven_Bot::canStepBackward(Vector2D& PositionOfStep)const
   PositionOfStep = Pos() - Facing() * StepDistance - Facing() * BRadius();
 
   return canWalkTo(PositionOfStep);
+}
+
+al::Record Raven_Bot::createRecord()
+{
+
+	const auto healthRatio = Raven_Feature::Health(this);
+	const auto weaponsRatio = Raven_Feature::TotalWeaponStrength(this);
+
+	auto pWorld = this->GetWorld();
+	auto pTarget = this->GetTargetBot();
+
+	double distance = Vec2DDistanceSq(this->Pos(), pTarget->Pos());
+
+	bool sight = doWallsObstructLineSegment(
+		this->Pos(),
+		pTarget->Pos(),
+		pWorld->GetMap()->GetWalls());
+
+	al::Record r;
+	r[al::Attributes::TargetDistance] = distance;
+	r[al::Attributes::LineOfSight] = !sight ? 1.0 : 0.0;
+	r[al::Attributes::OwnerLife] = healthRatio;
+	r[al::Attributes::AmmoCount] = weaponsRatio;
+
+	return r;
 }
 
 //--------------------------- Render -------------------------------------

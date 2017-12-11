@@ -172,6 +172,7 @@ public:
 
   void startRecorder();
   void stopRecorder();
+  void deleteRecords();
   void makeClumsy();
   void lobotomize();
   

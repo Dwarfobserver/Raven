@@ -1034,6 +1034,11 @@ void Raven_Game::stopRecorder() {
 	debug_con << "Recorder destroyed" << "";
 }
 
+void Raven_Game::deleteRecords()
+{
+	al::Recorder::remove();
+}
+
 
 void Raven_Game::makeClumsy() {
 	if (pRecorder_) {
@@ -1050,6 +1055,7 @@ void Raven_Game::makeClumsy() {
 	const auto pFile = al::resources().open(al::Recorder::FILE_NAME);
 	auto const& records = pFile->records();
 	const auto package = al::PackedRecords{ records.front().attributes(),{ &records } };
+	debug_con << "records count = " << package.dataCount() << "";
 
 	al::TrainConfig trainConfig;
 	trainConfig.errorAccepted = 0.001;
@@ -1063,7 +1069,7 @@ void Raven_Game::makeClumsy() {
 	nnConfig.layerSize = 3;
 
 	auto pBrain = std::make_unique<al::NeuralNetwork>(nnConfig);
-	train(*pBrain, package, trainConfig);
+	debug_con << "error rate = " << train(*pBrain, package, trainConfig) * 1'000 << "";
 	m_pSelectedBot->setBrain(move(pBrain));
 
 	debug_con << "Implemented brain on selected bot" << "";
